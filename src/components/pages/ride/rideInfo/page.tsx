@@ -21,7 +21,7 @@ export default function RideInfoPage() {
   const { showToast } = useMyToast();
 
   // Fetch current user
-  const { data: userData, isLoading: userLoading } = useUserDataQuery();
+  const { data: userData, isLoading: userLoading } = useUserDataQuery(undefined);
 
   const {
     data: rideData,

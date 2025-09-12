@@ -2,6 +2,7 @@
 import { useGetDirectionMutation } from "@/redux/features/api/locationService.api";
 import { useEffect, useRef, useState } from "react";
 import RideMap from "../requestRide/RideMap";
+import Loading from "@/components/layouts/Loading";
 
 export default function RouteFetcher({ ride }: any) {
   const [getDirection, { isLoading: directionLoading }] =
@@ -30,17 +31,18 @@ export default function RouteFetcher({ ride }: any) {
         steps: true,
         overview: "full",
       } );
-
+      
       try
       {
         const routeToPickup = await getDirection(
           payloadTemplate( driverCoords, pickupCoords )
         ).unwrap();
-
+        
         const routeToDropoff = await getDirection(
           payloadTemplate( pickupCoords, dropOffCoords )
         ).unwrap();
-
+        
+        console.log( "Fetching route", routeToPickup, routeToDropoff );
         setLocation( {
           driveToPickUp: routeToPickup.data,
           drivePickUpToDrop: routeToDropoff.data,
@@ -56,7 +58,7 @@ export default function RouteFetcher({ ride }: any) {
   
 
   if (directionLoading) {
-    return <p>Loading route...</p>;
+    return <Loading />
   }
 
   if (!location.driveToPickUp || !location.drivePickUpToDrop) return null;
