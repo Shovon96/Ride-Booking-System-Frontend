@@ -1,4 +1,5 @@
-import { CatIcon, Facebook, GithubIcon, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from 'lucide-react';
+import Logo from '@/assets/Logo';
+import {Facebook, Instagram, Mail, MapPin, Phone, Twitter } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -10,19 +11,15 @@ const Footer = () => {
         <div className="flex flex-wrap justify-between gap-5">
           {/* Brand */}
           <div className="col-span-1 lg:col-span-1">
-            <Link to="/" className="flex items-center space-x-2 mb-4">
-              <CatIcon className="h-8 w-8 text-green-600" />
-              <span className="font-bold text-xl text-yellow-400">Let's Ride</span>
-            </Link>
+            <Logo />
             <p className="text-gray-400 mb-4">
               Your reliable ride-sharing partner. Safe, fast, and affordable transportation at your fingertips.
             </p>
             <div className="flex space-x-4">
-              <Facebook className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
-              <Twitter className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
-              <Instagram className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
-              <Linkedin className="h-5 w-5 text-gray-400 hover:text-blue-400 cursor-pointer transition-colors" />
-            </div>
+              <Facebook className="h-5 w-5 text-gray-400 hover:text-primary cursor-pointer transition-colors" />
+              <Twitter className="h-5 w-5 text-gray-400 hover:text-primary cursor-pointer transition-colors" />
+              <Instagram className="h-5 w-5 text-gray-400 hover:text-primary cursor-pointer transition-colors" />
+             </div>
           </div>
 
 
@@ -31,33 +28,24 @@ const Footer = () => {
             <h3 className="font-semibold text-lg mb-4">Contact Info</h3>
             <ul className="space-y-3">
               <li className="flex items-center space-x-2">
-                <Phone className="h-4 w-4 text-blue-400" />
-                <span className="text-gray-400">+1234567890</span>
+                <Phone className="h-4 w-4 text-primary" />
+                <span className="text-gray-400">+1256547457</span>
               </li>
               <li className="flex items-center space-x-2">
-                <Mail className="h-4 w-4 text-blue-400" />
-                <span className="text-gray-400">support@nai.com</span>
+                <Mail className="h-4 w-4 text-primary" />
+                <span className="text-gray-400">choloride@example.com</span>
               </li>
               <li className="flex items-center space-x-2">
-                <MapPin className="h-4 w-4 text-blue-400" />
-                <span className="text-gray-400">123 Business Tower, Dubai 10001</span>
+                <MapPin className="h-4 w-4 text-primary" />
+                <span className="text-gray-400">102 Ruposhi Hall, Mirpur.</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm flex gap-2">
-            © {currentYear} Let's Ride. All rights reserved
-            <span><GithubIcon className='text-green-600' /></span>
-            <a
-              href="https://www.github.com/muhamash"
-              target="_blank"
-              rel="noopener noreferrer"
-              className='text-yellow-400 font-mono cursor-pointer'
-            >
-              www.github.com/muhamash
-            </a>
+          <p className="text-gray-400 text-sm flex gap-2 m-auto">
+            © {currentYear} All rights reserved CHOLORIDE.
           </p>
 
           <div className="flex space-x-6 mt-4 md:mt-0">
