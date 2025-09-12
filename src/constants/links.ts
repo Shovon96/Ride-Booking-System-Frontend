@@ -14,12 +14,6 @@ const SeeRidesPage = lazy( () => import( "@/components/pages/ride/rideHistory/pa
 
 
 export const navItemLinks = {
-  logo: {
-    url: "/",
-    src: "/ride.ico",
-    alt: "logo",
-    title: "Let's Ride",
-  },
   menu: [
     {
       title: "Ride",
@@ -27,21 +21,21 @@ export const navItemLinks = {
       roles: ["RIDER", "ADMIN", "DRIVER"],
       items: [
         {
-          title: "Go for a ride",
+          title: "Take a Ride",
           description: "Request a new ride",
           url: "/ride/request-ride",
           roles: [ "RIDER", "ADMIN" ],
           Component: RequestRidePage
         },
         {
-          title: "See ride history",
-          description: "Check your ride history",
+          title: "Ride History",
+          description: "See your all ride history",
           url: "/ride/ride-info",
           roles: [ "RIDER", "DRIVER", "ADMIN" ],
           Component: SeeRidesPage
         },
         {
-          title: "Check requested ride",
+          title: "Check Requested Ride",
           description: "Check your requested ride status",
           url: "/ride/check-ride-request",
           roles: [ "DRIVER" ],
@@ -55,7 +49,7 @@ export const navItemLinks = {
       roles: ["RIDER", "ADMIN", "DRIVER"],
       items: [
         {
-          title: "User info",
+          title: "User Info",
           description: "Profile and settings",
           url: "/user/info",
           roles: [ "RIDER", "ADMIN", "DRIVER" ],
@@ -63,21 +57,14 @@ export const navItemLinks = {
           
         },
         {
-          title: "User stats",
+          title: "User Stats",
           description: "User stats and details for individuals",
           url: "/user/user-stats",
           roles: [ "DRIVER" , "RIDER", "ADMIN"],
           Component: UserStatsPage
         },
-        // {
-        //   title: "All user and driver stats",
-        //   description: "Check all user and driver stats",
-        //   url: "/ride/check-stats",
-        //   roles: [ "ADMIN" ],
-        //   // Component: userStatsPage
-        // },
         {
-          title: "Control user",
+          title: "Control User",
           description: "Manage user access",
           url: "/user/manage-access",
           roles: [ "ADMIN" ],
