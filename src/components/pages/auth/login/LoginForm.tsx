@@ -76,7 +76,7 @@ export function LoginForm({
     return (
         <div className={cn(
             "flex flex-col gap-6",
-            "bg-teal-100/20 backdrop-blur-md border border-gray-500 rounded-lg shadow-lg md:px-10 py-5 p-3",
+            "bg-teal-100/20 backdrop-blur-md border rounded-lg shadow-lg md:px-10 py-5 p-3",
             className
         )} >
             <Form {...form}>
@@ -90,10 +90,10 @@ export function LoginForm({
                 
                                 <span className="sr-only">Free Ride Inc.</span>
                             </a>
-                            <h1 className="text-xl text-center md:text-4xl font-bold text-accent">Welcome to Free Ride Inc.</h1>
-                            <div className="text-center text-sm md:text-md text-yellow-500">
+                            <h1 className="text-xl text-center md:text-4xl font-bold text-foreground">Welcome to CHOLORIDE</h1>
+                            <div className="text-center text-sm md:text-md text-chart-4">
                                 Wanted an account?{" "}
-                                <Link className="underline underline-offset-4 text-red-700 font-bold bg-background px-3 py-2 rounded-md" to={"/registration"}>Register</Link>
+                                <Link className="underline underline-offset-4 text-primary font-bold bg-background px-3 py-2 rounded-md" to={"/registration"}>Register</Link>
                             </div>
                         </div>
 

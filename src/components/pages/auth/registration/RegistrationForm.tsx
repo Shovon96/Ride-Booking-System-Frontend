@@ -253,7 +253,7 @@ export default function RegistrationForm ()
                         </div>
                     )}
 
-                    <Button type="submit" className="w-full cursor-pointer my-5 bg-chart-5">
+                    <Button type="submit" className="w-full cursor-pointer my-5 bg-primary">
                         Register
                     </Button>
                 </form>

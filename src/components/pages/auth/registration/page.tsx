@@ -1,23 +1,25 @@
+import registerImage from "@/assets/register-rider-image.png"
+import Logo from "@/assets/Logo";
 import RegistrationForm from "./RegistrationForm";
 
 export default function RegistrationPage() {
     return (
         <div className="grid min-h-svh lg:grid-cols-2">
-            <div className="bg-muted relative hidden lg:block">
+            <div className="relative hidden bg-muted lg:block">
                 <img
-                    src="/registration.webp"
+                    src={registerImage}
                     alt="Image"
-                    className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                    className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.8]"
                 />
             </div>
             <div className="flex flex-col gap-4 p-6 md:p-10">
-                
-                <div className="flex flex-col gap-5 justify-center items-center min-h-screen">
-                    <div className="flex flex-col items-center gap-2">
-                        <h1 className="text-xl text-center md:text-4xl font-bold text-chart-5">Please register to Free Ride Inc.</h1>
-                        
+                <div className="flex justify-center gap-2 md:justify-start">
+                    <div className="flex items-center gap-2 font-medium">
+                        <Logo />
                     </div>
-                    <div className="w-full max-w-xs">
+                </div>
+                <div className="flex flex-1 items-center justify-center">
+                    <div className="w-full max-w-sm">
                         <RegistrationForm />
                     </div>
                 </div>
