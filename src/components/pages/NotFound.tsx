@@ -1,13 +1,12 @@
-import { Ghost } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 import { Link } from "react-router";
 
 export default function NotFoundPage() {
-  return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-cyan-50 text-center p-4">
-      <Ghost className="h-20 w-20 text-muted-foreground" />
-      <h1 className="mt-6 text-3xl font-bold text-muted-foreground">Page Not Found</h1>
-          <p className="mt-2 text-rose-800">Sorry, the page you are looking for does not exist.</p>
-          <Link to={"/"} variant="outline" className="bg-chart-5 text-white px-5 py-2 rounded-md text-md shadow-2xl my-2">Back to home</Link>
-    </div>
-  );
+    return (
+        <div className="h-screen flex flex-col items-center justify-center">
+            <h1 className="text-3xl font-bold my-4">This route is not found!!</h1>
+            <Link to={"/"}><Button className="cursor-pointer" size="lg">Go Home</Button></Link>
+        </div>
+    )
 }

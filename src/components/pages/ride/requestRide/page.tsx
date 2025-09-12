@@ -203,20 +203,20 @@ export default function RequestRide() {
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-900 mb-2">Book Your Ride</h1>
-          <p className="text-gray-600">Enter your details and we'll find you the perfect ride</p>
+          <p className="text-gray-600">Enter your destination location and take a ride. We'll find you a perfect ride</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Form Section */}
           <Card className="p-6 shadow-lg">
             <CardHeader className="p-0 pb-6">
-              <CardTitle className="text-2xl flex items-center gap-2">
-                <Navigation className="h-6 w-6 text-blue-600" />
-                Ride Details
+              <CardTitle className="text-xl flex items-center gap-2">
+                <Navigation className="h-6 w-6 text-chart-2" />
+                Ride Booking Details
               </CardTitle>
               {
                 !coords && useCurrentLocation && (
-                  <p className="text-sm text-pink-400 font-mono py-5 leading-tight">NOTE : You have not permitted your device location to the app! Or maybe your location is not supported for the reverse geo api!! Please allow location or give permission to the website!! for better result reload the page after permitted the location service!! else you better enter manually coord/location info at the input box!!</p>
+                  <p className="text-sm text-ring font-mono py-5 leading-tight">NOTE : You have not permitted your device location to the app! Or maybe your location is not supported for the reverse geo api!! Please allow location or give permission to the website!! for better result reload the page after permitted the location service!! else you better enter manually coord/location info at the input box!!</p>
                 )
               }
 
@@ -258,7 +258,7 @@ export default function RequestRide() {
                   {useCurrentLocation ? (
                     <div className="space-y-2">
                       <Label className="flex items-center gap-2">
-                        <MapPin className="h-4 w-4 text-blue-600" />
+                        <MapPin className="h-4 w-4 text-chart-1" />
                         Pickup Location (Current)
                       </Label>
                       <Input
@@ -275,7 +275,7 @@ export default function RequestRide() {
                       onChange={setPickupLocation}
                       onLocationSelect={(location) => handleLocationSelect(location, true)}
                       locations={[]}
-                      icon={<MapPin className="h-4 w-4 text-blue-600" />}
+                      icon={<MapPin className="h-4 w-4 text-chart-1" />}
                       inputRef={pickupInputRef}
                     />
                   )}
@@ -300,7 +300,7 @@ export default function RequestRide() {
                     onChange={setDestination}
                     onLocationSelect={(location) => handleLocationSelect(location, false)}
                     locations={[]}
-                    icon={<MapPin className="h-4 w-4 text-red-600" />}
+                    icon={<MapPin className="h-4 w-4 text-chart-2" />}
                     inputRef={destinationInputRef}
                   />
                 </div>
@@ -341,11 +341,11 @@ export default function RequestRide() {
 
                 <Button
                   type="submit"
-                  className="w-full"
+                  className="w-full cursor-pointer"
                   size="lg"
                   disabled={!destinationCoords || !pickupCoords}
                 >
-                  <Car className="mr-2 h-5 w-5" /> Request Ride Now
+                Request Ride Now
                 </Button>
               </form>
             </CardContent>

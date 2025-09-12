@@ -29,7 +29,7 @@ export default function RideSummary({
   return (
     <Card className="shadow-lg">
       <CardHeader className="pb-3">
-        <CardTitle>Ride Summary</CardTitle>
+        <CardTitle>This Ride Summary</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
@@ -65,7 +65,7 @@ export default function RideSummary({
                     return rideOptions.find( o => o.id === rideType )?.price;
                   } )()
                 }
-                {" "}Tk
+                {" "}
 
 
               </span>

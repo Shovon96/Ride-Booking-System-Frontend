@@ -66,13 +66,13 @@ export default function RideMap({
       <CardHeader className="pb-3">
         <CardTitle className="flex gap-2 justify-between items-center">
           <div className="flex items-end gap-2">
-            <MapPin className="h-5 w-5 text-pink-600" />
+            <MapPin className="h-5 w-5 text-ring" />
             <p>Your Route</p>
           </div>
 
           {onlineDrivers && (
             <span className="flex items-center">
-              Online <Car className="text-purple-500 text-sm ml-1 mr-2" />: {onlineDrivers?.length}
+              Online Drivers <Car className="text-chart-2 fill-chart-3 text-sm ml-1 mr-2" />: {onlineDrivers?.length}
             </span>
           )}
         </CardTitle>

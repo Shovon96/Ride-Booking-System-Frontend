@@ -53,9 +53,9 @@ export default function LocationInput({
 
                 if (searchResult?.statusCode === 200 && Array.isArray(searchResult.data)) {
                     const mappedLocations: Location[] = searchResult.data.map((loc: any, index: number) => ({
-                        id: index, // যেহেতু unique place_id নাই, index ব্যবহার করা যাবে
-                        name: loc.formatted, // display করার জন্য formatted string perfect
-                        address: loc.components?.state_district || loc.components?.state || "", // যদি দরকার হয়
+                        id: index,
+                        name: loc.formatted,
+                        address: loc.components?.state_district || loc.components?.state || "",
                         coords: { lat: loc.geometry.lat, lng: loc.geometry.lng },
                     }));
                     setFilteredSuggestions(mappedLocations);
@@ -108,7 +108,7 @@ export default function LocationInput({
                 {value && (
                     <button
                         type="button"
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 text-border hover:text-muted-foreground"
                         onClick={() => {
                             onChange("");
                             if (id === "pickup") {
@@ -124,7 +124,7 @@ export default function LocationInput({
                 )}
                 {/* Suggestion Dropdown */}
                 <div
-                    className={`absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-md shadow-lg max-h-60 overflow-y-auto transition-all duration-300 ease-in-out
+                    className={`absolute z-10 w-full mt-1 bg-background border-popover rounded-md shadow-lg max-h-60 overflow-y-auto transition-all duration-300 ease-in-out
                         ${showSuggestions ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}`}
                 >
                     {filteredSuggestions.length > 0 ? (
@@ -139,7 +139,7 @@ export default function LocationInput({
                             </div>
                         ))
                     ) : (
-                        <div className="px-4 py-3 text-gray-500">No locations found</div>
+                        <div className="px-4 py-3 text-muted-foreground">No locations found</div>
                     )}
                 </div>
             </div>
