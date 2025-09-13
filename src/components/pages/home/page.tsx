@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router';
 import CountUp from "react-countup";
-
+import homePageImage from '/login.webp'
 
 
 const Home = () => {
@@ -69,7 +69,6 @@ const Home = () => {
       image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg"
     }
   ];
-
 
   // Stats countersection data
   const stats = [
@@ -310,8 +309,69 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Image with Text Section */}
+      <section className="py-16 bg-muted">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-center">
+          {/* Left Image Section */}
+          <div className="md:w-1/2 w-full flex justify-center mb-6 md:mb-0">
+            <img
+              src={homePageImage}
+              alt="Bike Rider"
+              className="rounded-lg shadow-md w-full max-w-md"
+            />
+          </div>
+
+          {/* Right Text Section */}
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="text-2xl lg:text-4xl mb-6 uppercase text-primary font-bold text-shadow-lg text-shadow-gray-400"
+            >
+              {
+                role ? "You can start the journey from here!" : "Ready to Start Your Journey?"
+              }
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <ul className='text-lg mb-8 text-foreground leading-10'>
+                <li>✔ Fast, Safe & Easy Income for a better lifestyle</li>
+                <li>✔ Scope to avail bonus offers</li>
+                <li>✔ Hassle free on-time Payment</li>
+              </ul>
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <Link
+                to={role ? "/user" : "/registration"}
+                className="bg-primary text-white px-6 py-2 rounded-full font-semibold text-lg hover:bg-red-500 transition-colors duration-200 flex items-center justify-center"
+              >
+                <Users className="mr-2" />
+                {
+                  role ? role : "Register"
+                }
+              </Link>
+              <div
+                onClick={handleDriverClick}
+                className="border-2 border-foreground text-foreground px-6 py-2 rounded-full font-semibold text-lg hover:bg-white hover:text-primary transition-colors duration-200 flex items-center justify-center cursor-pointer"
+              >
+                <TrendingUp className="mr-2" />
+                Drive & Earn
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <motion.h2
@@ -363,51 +423,31 @@ const Home = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            className="text-3xl lg:text-4xl font-bold mb-6"
-          >
-            {
-              role ? "You can start the journey from here!" : "Ready to Start Your Journey?"
-            }
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl mb-8 text-blue-100"
-          >
-            Join millions of riders who trust Let's Ride for their daily transportation needs.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
-            <Link
-              to={role ? "/user" : "/registration"}
-              className="bg-yellow-400 text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-yellow-300 transition-colors duration-200 flex items-center justify-center"
+      {/* Newsletter Section */}
+      <div className="mx-auto pt-16 pb-12 bg-gray-900">
+        <strong className="block text-center text-xl font-bold text-white sm:text-3xl">
+          Want us to email you with the latest blockbuster news?
+        </strong>
+
+        <form className="mt-6 mx-auto max-w-md">
+          <div className="relative max-w-lg">
+            <label className="sr-only" htmlFor="email"> Email </label>
+
+            <input
+              className="w-full rounded-full border border-input bg-muted p-4 pe-32 text-sm font-medium text-foreground placeholder:text-muted-foreground"
+              id="email"
+              type="email"
+              placeholder="john@doe.com"
+            />
+
+            <button
+              className="absolute end-1 top-1/2 -translate-y-1/2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition hover:bg-primary/90"
             >
-              <Users className="mr-2 h-5 w-5" />
-              {
-                role ? role : "Register"
-              }
-            </Link>
-            <div
-              onClick={handleDriverClick}
-              className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-blue-600 transition-colors duration-200 flex items-center justify-center cursor-pointer"
-            >
-              <TrendingUp className="mr-2 h-5 w-5" />
-              Drive & Earn
-            </div>
-          </motion.div>
-        </div>
-      </section>
+              Subscribe
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
