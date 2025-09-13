@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import {
   ArrowRight,
   Car,
+  CarFront,
   Clock,
   CreditCard,
   DollarSign,
@@ -74,6 +75,29 @@ const Home = () => {
     { number: 30, suffix: "+", label: "Cities Served" },
     { number: 5, suffix: "⭐", label: "Average Rating" }
   ];
+
+  const howItWorksData =
+    [
+      {
+        step: "01",
+        icon: <MapPin className="h-8 w-8 text-blue-600" />,
+        title: "Set Pickup & Destination",
+        description: "Enter your pickup point and where you are going. Our smart maps will detect your location instantly."
+      },
+      {
+        step: "02",
+        icon: <CarFront className="h-8 w-8 text-green-600" />,
+        title: "Choose Your Ride",
+        description: "Pick from standard, premium, or shared rides with transparent pricing before you confirm."
+      },
+      {
+        step: "03",
+        icon: <Smartphone className="h-8 w-8 text-purple-600" />,
+        title: "Track & Arrive",
+        description: "Track your driver in real-time, enjoy a safe ride, and pay easily through the app."
+      }
+    ]
+
 
   const { data } = useUserDataQuery(undefined);
   const navigate = useNavigate();
@@ -196,7 +220,7 @@ const Home = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-muted">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <motion.h2
@@ -217,38 +241,19 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                step: "01",
-                icon: <MapPin className="h-8 w-8" />,
-                title: "Set Your Location",
-                description: "Enter your pickup location and destination with our smart location detection."
-              },
-              {
-                step: "02",
-                icon: <Car className="h-8 w-8" />,
-                title: "Choose Your Ride",
-                description: "Select from various vehicle options and see upfront pricing with no surprises."
-              },
-              {
-                step: "03",
-                icon: <CreditCard className="h-8 w-8" />,
-                title: "NO Pay & Test Go",
-                description: "Secure payment through the app with multiple payment options available."
-              }
-            ].map((item, index) => (
+            {howItWorksData?.map((item, index) => (
               <motion.div
                 key={item.step}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="text-center group"
+                className="text-center group border border-primary px-6 py-8 rounded-lg hover:bg-background hover:text-foreground transition-colors duration-300 shadow-md shadow-primary/20"
               >
                 <div className="relative mb-8">
-                  <div className="w-20 h-20 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-200">
+                  <div className=" text-white rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform duration-200">
                     {item.icon}
                   </div>
-                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-yellow-400 text-gray-900 rounded-full flex items-center justify-center text-sm font-bold">
+                  <div className="absolute -top-11 -right-7 p-3 bg-chart-3 text-foreground rounded-full flex items-center justify-center text-sm font-bold">
                     {item.step}
                   </div>
                 </div>
