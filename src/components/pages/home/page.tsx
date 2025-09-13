@@ -2,24 +2,22 @@ import { useMyToast } from '@/components/layouts/MyToast';
 import { UserRole } from '@/constants/userRole';
 import { useUserDataQuery } from '@/redux/features/api/auth.api';
 import { motion } from 'framer-motion';
-import
-  {
-    ArrowRight,
-    Car,
-    Clock,
-    CreditCard,
-    DollarSign,
-    MapPin,
-    Shield,
-    Smartphone,
-    Star,
-    TrendingUp,
-    Users
-  } from 'lucide-react';
+import {
+  ArrowRight,
+  Car,
+  Clock,
+  CreditCard,
+  DollarSign,
+  MapPin,
+  Shield,
+  Smartphone,
+  Star,
+  TrendingUp,
+  Users
+} from 'lucide-react';
 import { Link, useNavigate } from 'react-router';
 
-const Home = () =>
-{
+const Home = () => {
   const features = [
     {
       icon: <Shield className="h-8 w-8 text-blue-600" />,
@@ -74,38 +72,39 @@ const Home = () =>
     { number: "4.9", label: "Average Rating" }
   ];
 
-  const { data } = useUserDataQuery();
+  const { data } = useUserDataQuery(undefined);
   const navigate = useNavigate();
   const { showToast } = useMyToast();
 
   const role = data?.data?.role || "";
 
-  const handleDriverClick = () =>
-  {
-    if ( role !== UserRole.DRIVER )
-    {
-      showToast( {
+  const handleDriverClick = () => {
+    if (role !== UserRole.DRIVER) {
+      showToast({
         type: "info",
         message: "Please logout your account and register as driver!"
-      } );
+      });
 
-      navigate( "/registration", { state: UserRole.DRIVER } );
+      navigate("/registration", { state: UserRole.DRIVER });
       return;
     }
 
-    if ( role === UserRole.DRIVER )
-    {
-      navigate( "/ride/check-ride-request");
+    if (role === UserRole.DRIVER) {
+      navigate("/ride/check-ride-request");
       return;
     }
-    
+
   }
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-purple-800 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
+      <section
+        style={{
+          backgroundImage: "url('/choloride-hero-banner-image.png')",
+        }}
+        className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-purple-800 text-white overflow-hidden">
+        {/* <div className="absolute inset-0 bg-black/20"></div> */}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -113,33 +112,33 @@ const Home = () =>
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-4xl lg:text-6xl font-bold leading-tight mb-6">
-                Your Ride,
-                <span className="text-yellow-400"> Your Way</span>
+              <h1 className="text-3xl lg:text-5xl font-bold leading-tight mb-6 text-muted-foreground">
+                Safe and Fast Way With
+                <span className="text-primary font-bold italic text-shadow-lg text-shadow-amber-400"> CHOLORIDE</span>
               </h1>
-              <p className="text-xl lg:text-2xl text-blue-100 mb-8 leading-relaxed">
+              <p className="text-xl lg:text-2xl text-muted-foreground mb-8 leading-relaxed">
                 Experience seamless transportation with verified drivers, real-time tracking, and affordable rates.
               </p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center py-5 place-self-start"
+                className="flex flex-col sm:flex-row gap-4 justify-center py-2 place-self-start"
               >
                 <Link
                   to={role ? "/user" : "/login"}
-                  className="bg-yellow-400 text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-yellow-300 transition-colors duration-200 flex items-center justify-center"
+                  className="bg-yellow-400 text-gray-900 px-8 py-2 rounded-full font-semibold text-lg hover:bg-yellow-300 transition-colors duration-200 flex items-center justify-center"
                 >
-                  <Users className="mr-2 h-5 w-5" />
+                  <Users />
                   {
                     role ? role : "Login"
                   }
                 </Link>
                 <div
                   onClick={handleDriverClick}
-                  className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-blue-600 transition-colors duration-200 flex items-center justify-center cursor-pointer"
+                  className="border-2 border-white text-muted-foreground px-5 py-2 rounded-full font-semibold text-lg hover:bg-white hover:text-primary transition-colors duration-200 flex items-center justify-center cursor-pointer"
                 >
-                  <TrendingUp className="mr-2 h-5 w-5" />
+                  <TrendingUp />
                   {role === UserRole.DRIVER ? "Go for drive!" : "Drive & Earn"}
                 </div>
               </motion.div>
@@ -155,31 +154,8 @@ const Home = () =>
                     </Link>
                   )
                 }
-                {/* <div className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-blue-600 transition-all duration-200 flex items-center justify-center cursor-pointer">
-                  <Play className="mr-2 h-5 w-5" />
-                  Take a tour??
-                </div> */}
               </div>
-              
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
-            >
-              <img
-                src="/getInCar.avif"
-                alt="Happy rider in car"
-                className="rounded-2xl shadow-2xl w-full h-80 lg:h-96 object-cover"
-              />
-              <div className="absolute -bottom-6 -left-6 bg-white text-gray-900 p-4 rounded-xl shadow-lg">
-                <div className="flex items-center space-x-2">
-                  <Star className="h-5 w-5 text-yellow-400 fill-current" />
-                  <span className="font-bold">4.9/5.0</span>
-                </div>
-              </div>
+
             </motion.div>
           </div>
         </div>
@@ -189,7 +165,7 @@ const Home = () =>
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map( ( stat, index ) => (
+            {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
@@ -202,7 +178,7 @@ const Home = () =>
                 </div>
                 <div className="text-gray-600 font-medium">{stat.label}</div>
               </motion.div>
-            ) )}
+            ))}
           </div>
         </div>
       </section>
@@ -248,7 +224,7 @@ const Home = () =>
                 title: "NO Pay & Test Go",
                 description: "Secure payment through the app with multiple payment options available."
               }
-            ].map( ( item, index ) => (
+            ].map((item, index) => (
               <motion.div
                 key={item.step}
                 initial={{ opacity: 0, y: 30 }}
@@ -267,7 +243,7 @@ const Home = () =>
                 <h3 className="text-xl font-bold text-gray-900 mb-4">{item.title}</h3>
                 <p className="text-gray-600">{item.description}</p>
               </motion.div>
-            ) )}
+            ))}
           </div>
         </div>
       </section>
@@ -294,7 +270,7 @@ const Home = () =>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map( ( feature, index ) => (
+            {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
                 initial={{ opacity: 0, y: 20 }}
@@ -308,7 +284,7 @@ const Home = () =>
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
               </motion.div>
-            ) )}
+            ))}
           </div>
         </div>
       </section>
@@ -335,7 +311,7 @@ const Home = () =>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map( ( testimonial, index ) => (
+            {testimonials.map((testimonial, index) => (
               <motion.div
                 key={testimonial.name}
                 initial={{ opacity: 0, y: 30 }}
@@ -344,9 +320,9 @@ const Home = () =>
                 className="bg-white p-6 rounded-xl shadow-lg"
               >
                 <div className="flex items-center mb-4">
-                  {[ ...Array( testimonial.rating ) ].map( ( _, i ) => (
+                  {[...Array(testimonial.rating)].map((_, i) => (
                     <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                  ) )}
+                  ))}
                 </div>
                 <p className="text-gray-700 mb-6 italic">"{testimonial.comment}"</p>
                 <div className="flex items-center">
@@ -361,7 +337,7 @@ const Home = () =>
                   </div>
                 </div>
               </motion.div>
-            ) )}
+            ))}
           </div>
         </div>
       </section>
