@@ -16,6 +16,9 @@ import {
   Users
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router';
+import CountUp from "react-countup";
+
+
 
 const Home = () => {
   const features = [
@@ -66,10 +69,10 @@ const Home = () => {
   ];
 
   const stats = [
-    { number: "1M+", label: "Happy Riders" },
-    { number: "50K+", label: "Active Drivers" },
-    { number: "100+", label: "Cities Served" },
-    { number: "4.9", label: "Average Rating" }
+    { number: 50, suffix: "K+", label: "Happy Riders" },
+    { number: 10, suffix: "K+", label: "Active Drivers" },
+    { number: 30, suffix: "+", label: "Cities Served" },
+    { number: 5, suffix: "⭐", label: "Average Rating" }
   ];
 
   const { data } = useUserDataQuery(undefined);
@@ -127,42 +130,43 @@ const Home = () => {
               >
                 <Link
                   to={role ? "/user" : "/login"}
-                  className="bg-yellow-400 text-gray-900 px-8 py-2 rounded-full font-semibold text-lg hover:bg-yellow-300 transition-colors duration-200 flex items-center justify-center"
+                  className="bg-chart-4 text-background px-8 py-2 rounded-full font-semibold text-lg hover:bg-primary transition-colors duration-200 flex items-center justify-center"
                 >
                   <Users />
                   {
                     role ? role : "Login"
                   }
                 </Link>
-                <div
-                  onClick={handleDriverClick}
-                  className="border-2 border-white text-muted-foreground px-5 py-2 rounded-full font-semibold text-lg hover:bg-white hover:text-primary transition-colors duration-200 flex items-center justify-center cursor-pointer"
-                >
-                  <TrendingUp />
-                  {role === UserRole.DRIVER ? "Go for drive!" : "Drive & Earn"}
+                {UserRole.DRIVER && role === UserRole.DRIVER &&
+                  <div
+                    onClick={handleDriverClick}
+                    className="border-2 border-white text-muted-foreground px-5 py-2 rounded-full font-semibold text-lg hover:bg-white hover:text-primary transition-colors duration-200 flex items-center justify-center cursor-pointer"
+                  >
+                    <TrendingUp />
+                    {role === UserRole.DRIVER ? "Go for drive!" : "Drive & Earn"}
+                  </div>
+                }
+                <div className="flex flex-col sm:flex-row gap-4">
+                  {
+                    !role && (
+                      <Link
+                        to={"/registration"}
+                        className="text-foreground border border-muted-foreground px-6 py-3 rounded-full font-semibold text-lg hover:bg-muted transition-all duration-200 flex items-center justify-center group"
+                      >
+                        Get Started Today
+                        <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    )
+                  }
                 </div>
               </motion.div>
-              <div className="flex flex-col sm:flex-row gap-4">
-                {
-                  !role && (
-                    <Link
-                      to={"/registration"}
-                      className="bg-yellow-400 text-gray-900 px-8 py-4 rounded-full font-semibold text-lg hover:bg-yellow-300 transition-all duration-200 flex items-center justify-center group"
-                    >
-                      Get Started Today
-                      <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  )
-                }
-              </div>
-
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -171,12 +175,20 @@ const Home = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: false, amount: 0.3 }}
                 className="text-center"
               >
-                <div className="text-3xl lg:text-4xl font-bold text-blue-600 mb-2">
-                  {stat.number}
+                <div className="text-3xl lg:text-4xl font-bold text-chart-4 mb-2">
+                  <CountUp
+                    start={0}
+                    end={stat.number}
+                    duration={3.5}
+                    suffix={stat.suffix}
+                    enableScrollSpy
+                    scrollSpyOnce={false}
+                  />
                 </div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
+                <div className="text-foreground font-medium">{stat.label}</div>
               </motion.div>
             ))}
           </div>
