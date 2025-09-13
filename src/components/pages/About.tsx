@@ -33,7 +33,7 @@ const AboutPage: React.FC = () => {
 
       {/* Hero Section */}
       <section
-        className="relative h-[70vh] w-full bg-cover bg-center"
+        className="relative h-[70vh] w-full bg-cover bg-center border-b border-gray-200"
         style={{
           backgroundImage: "url('/about-page-banner.png')",
         }}
@@ -46,7 +46,7 @@ const AboutPage: React.FC = () => {
             className="text-left max-w-xl"
           >
             <h1 className="text-3xl lg:text-5xl font-extrabold leading-tight mb-6 text-white drop-shadow-lg">
-              ABOUT OF 
+              ABOUT OF
               <span className="text-primary italic"> CHOLORIDE</span>
             </h1>
             <p className="text-lg lg:text-xl text-white mb-8 leading-relaxed">
@@ -62,32 +62,21 @@ const AboutPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center justify-center">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Our Story
-              </h2>
-              <p className="text-lg text-gray-600 mb-6">
-                Founded in 2020, Let's Ride was born out of a simple idea: transportation should be
-                accessible, reliable, and safe for everyone. Our founders, experienced professionals
-                from the tech and transportation industries, saw an opportunity to create a platform
-                that truly serves both riders and drivers.
-              </p>
-              <p className="text-lg text-gray-600 mb-6">
-                What started as a small team with a big vision has grown into a thriving community
-                of thousands of users across multiple cities. We've processed over 500,000 rides
-                and continue to expand our reach while maintaining our commitment to quality and safety.
-              </p>
-              <p className="text-lg text-gray-600">
-                Today, we're proud to offer a platform that not only gets people where they need to
-                go but also provides flexible earning opportunities for drivers and contributes to
-                more sustainable urban transportation.
-              </p>
+              <img
+                src="/about-page-image39.png"
+                alt="Let's Ride team working together"
+                className="rounded-2xl shadow-2xl max-h-[500px] w-full object-cover"
+              />
             </div>
             <div>
-              <img
-                src="/unnamedxzX.webp"
-                alt="Let's Ride team working together"
-                className="rounded-2xl shadow-2xl"
-              />
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                OUR STORY
+              </h2>
+              <p className="text-lg text-gray-600 mb-6">
+                Founded in 2020, <span className="text-primary font-bold">CHOLORIDE</span> started with a simple mission: to make everyday travel safe, fast, and reliable. What began as a small vision has now grown into a trusted platform connecting thousands of riders and drivers across multiple cities. <br /><br />
+
+                We're committed to delivering affordable rides, verified drivers, and real-time tracking, while also creating flexible earning opportunities for drivers. At <span className="text-primary font-bold">CHOLORIDE</span>, it's not just about reaching destinations — it's about building a smarter and more sustainable way to move through the city.
+              </p>
             </div>
           </div>
         </div>
