@@ -4,13 +4,11 @@ import { useUserDataQuery } from '@/redux/features/api/auth.api';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
-  Car,
   CarFront,
+  CircleDollarSign,
   Clock,
-  CreditCard,
-  DollarSign,
   MapPin,
-  Shield,
+  ShieldCheck,
   Smartphone,
   Star,
   TrendingUp,
@@ -22,29 +20,32 @@ import CountUp from "react-countup";
 
 
 const Home = () => {
+
+  // Feature section data
   const features = [
     {
-      icon: <Shield className="h-8 w-8 text-blue-600" />,
+      icon: <ShieldCheck className="h-12 w-12 m-auto text-green-600" />,
       title: "Safe & Secure",
       description: "All drivers verified with background checks. Your safety is our priority."
     },
     {
-      icon: <Clock className="h-8 w-8 text-blue-600" />,
+      icon: <Clock className="h-12 w-12 m-auto text-blue-600" />,
       title: "Quick Booking",
       description: "Book a ride in seconds. Average pickup time is under 5 minutes."
     },
     {
-      icon: <DollarSign className="h-8 w-8 text-blue-600" />,
+      icon: <CircleDollarSign className="h-12 w-12 m-auto text-yellow-500" />,
       title: "Affordable Rates",
       description: "Transparent pricing with no  fees. Get the best value for your money."
     },
     {
-      icon: <Smartphone className="h-8 w-8 text-blue-600" />,
+      icon: <Smartphone className="h-12 w-12 m-auto text-purple-600" />,
       title: "Easy to Use",
       description: "Intuitive app design makes booking rides effortless for everyone."
     }
   ];
 
+// Testimonial section data
   const testimonials = [
     {
       name: "Sarah Johnson",
@@ -69,6 +70,7 @@ const Home = () => {
     }
   ];
 
+  // Stats countersection data
   const stats = [
     { number: 50, suffix: "K+", label: "Happy Riders" },
     { number: 10, suffix: "K+", label: "Active Drivers" },
@@ -76,6 +78,7 @@ const Home = () => {
     { number: 5, suffix: "⭐", label: "Average Rating" }
   ];
 
+  // How it works section
   const howItWorksData =
     [
       {
@@ -274,7 +277,7 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4"
             >
-              Why Choose Let's Ride?
+              Why Choose <span className="text-primary font-bold italic text-shadow-lg text-shadow-amber-400"> CHOLORIDE</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -293,12 +296,12 @@ const Home = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200 border border-gray-100 text-center group"
+                className="bg-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200 border border-gray-100 text-center group"
               >
                 <div className="mb-4 group-hover:scale-110 transition-transform duration-200">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
               </motion.div>
             ))}
