@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { Award, Heart, Target, Users } from 'lucide-react';
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const AboutPage: React.FC = () => {
 
@@ -29,19 +30,30 @@ const AboutPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      
+
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-emerald-600 text-white py-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              About Let's Ride
+      <section
+        className="relative h-[70vh] w-full bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/about-page-banner.png')",
+        }}
+      >
+        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-full flex items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-left max-w-xl"
+          >
+            <h1 className="text-3xl lg:text-5xl font-extrabold leading-tight mb-6 text-white drop-shadow-lg">
+              ABOUT OF 
+              <span className="text-primary italic"> CHOLORIDE</span>
             </h1>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              We're on a mission to transform urban mobility by connecting riders and drivers 
+            <p className="text-lg lg:text-xl text-white mb-8 leading-relaxed">
+              We're on a mission to transform urban mobility by connecting riders and drivers
               through innovative technology and exceptional service.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -54,24 +66,24 @@ const AboutPage: React.FC = () => {
                 Our Story
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                Founded in 2020, Let's Ride was born out of a simple idea: transportation should be 
-                accessible, reliable, and safe for everyone. Our founders, experienced professionals 
-                from the tech and transportation industries, saw an opportunity to create a platform 
+                Founded in 2020, Let's Ride was born out of a simple idea: transportation should be
+                accessible, reliable, and safe for everyone. Our founders, experienced professionals
+                from the tech and transportation industries, saw an opportunity to create a platform
                 that truly serves both riders and drivers.
               </p>
               <p className="text-lg text-gray-600 mb-6">
-                What started as a small team with a big vision has grown into a thriving community 
-                of thousands of users across multiple cities. We've processed over 500,000 rides 
+                What started as a small team with a big vision has grown into a thriving community
+                of thousands of users across multiple cities. We've processed over 500,000 rides
                 and continue to expand our reach while maintaining our commitment to quality and safety.
               </p>
               <p className="text-lg text-gray-600">
-                Today, we're proud to offer a platform that not only gets people where they need to 
-                go but also provides flexible earning opportunities for drivers and contributes to 
+                Today, we're proud to offer a platform that not only gets people where they need to
+                go but also provides flexible earning opportunities for drivers and contributes to
                 more sustainable urban transportation.
               </p>
             </div>
             <div>
-              <img 
+              <img
                 src="/unnamedxzX.webp"
                 alt="Let's Ride team working together"
                 className="rounded-2xl shadow-2xl"
@@ -91,8 +103,8 @@ const AboutPage: React.FC = () => {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Mission</h3>
               <p className="text-gray-600">
-                To provide safe, reliable, and affordable transportation solutions that connect 
-                communities, empower drivers with flexible earning opportunities, and contribute 
+                To provide safe, reliable, and affordable transportation solutions that connect
+                communities, empower drivers with flexible earning opportunities, and contribute
                 to sustainable urban mobility.
               </p>
             </Card>
@@ -103,8 +115,8 @@ const AboutPage: React.FC = () => {
               </div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Our Vision</h3>
               <p className="text-gray-600">
-                A world where transportation is seamless, accessible, and environmentally conscious. 
-                Where technology serves humanity and creates opportunities for economic empowerment 
+                A world where transportation is seamless, accessible, and environmentally conscious.
+                Where technology serves humanity and creates opportunities for economic empowerment
                 and community building.
               </p>
             </Card>
