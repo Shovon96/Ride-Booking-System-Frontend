@@ -45,30 +45,31 @@ const Home = () => {
     }
   ];
 
-// Testimonial section data
+  // Testimonial section data
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      role: "Regular Commuter",
+      name: "Aisha Rahman",
+      role: "University Student",
       rating: 5,
-      comment: "Let's Ride has made my daily commute so much easier. The drivers are professional and the app is incredibly user-friendly.",
+      comment: "Booking a ride is so simple and affordable. It's perfect for getting to classes on time without stress.",
       image: "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg"
     },
     {
-      name: "Mike Chen",
-      role: "Business Professional",
+      name: "James Miller",
+      role: "Frequent Traveler",
       rating: 5,
-      comment: "Reliable service every time. I can always count on Let's Ride for important business meetings.",
+      comment: "I use this app for airport rides all the time. The drivers are punctual, and I love being able to track them in real time.",
       image: "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg"
     },
     {
-      name: "Emily Davis",
-      role: "Student",
+      name: "Sophia Patel",
+      role: "Working Mom",
       rating: 5,
-      comment: "Great prices and quick service. Perfect for getting around campus and the city.",
+      comment: "Safe and reliable rides give me peace of mind when I'm traveling with my kids. Highly recommend this service!",
       image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg"
     }
   ];
+
 
   // Stats countersection data
   const stats = [
@@ -143,7 +144,7 @@ const Home = () => {
               transition={{ duration: 0.8 }}
             >
               <h1 className="text-3xl lg:text-5xl font-bold leading-tight mb-6 text-muted-foreground">
-                Safe and Fast Way With
+                SAFE AND FAST WAY WITH
                 <span className="text-primary font-bold italic text-shadow-lg text-shadow-amber-400"> CHOLORIDE</span>
               </h1>
               <p className="text-xl lg:text-2xl text-muted-foreground mb-8 leading-relaxed">
@@ -231,7 +232,7 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4"
             >
-              How It Works
+              <span className="text-primary font-bold text-shadow-lg text-shadow-gray-400">HOW IT WORKS</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -277,7 +278,7 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4"
             >
-              Why Choose <span className="text-primary font-bold italic text-shadow-lg text-shadow-amber-400"> CHOLORIDE</span>
+              WHY CHOOSE <span className="text-primary font-bold italic text-shadow-lg text-shadow-amber-400"> CHOLORIDE</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -318,7 +319,7 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4"
             >
-              What Our Customers Say
+              <span className="text-primary font-bold text-shadow-lg text-shadow-gray-400">CUSTOMER TESTIMONIAL</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -346,11 +347,11 @@ const Home = () => {
                 </div>
                 <p className="text-gray-700 mb-6 italic">"{testimonial.comment}"</p>
                 <div className="flex items-center">
-                  {/* <img
+                  <img
                     src={testimonial.image}
                     alt={testimonial.name}
-                    className="w-12 h-12 rounded-full mr-4 object-cover"
-                  /> */}
+                    className="w-10 h-10 rounded-full mr-4 object-cover"
+                  />
                   <div>
                     <div className="font-bold text-gray-900">{testimonial.name}</div>
                     <div className="text-sm text-gray-600">{testimonial.role}</div>
