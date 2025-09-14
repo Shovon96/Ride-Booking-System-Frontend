@@ -3,10 +3,9 @@
 
 A scalable, production-grade, and fully responsive **ride booking platform** similar to **Uber** or **Pathao**, built with **React**, **Redux Toolkit**, and **RTK Query**.  
 
-[**Live Demo**](https://ride-system-frontend.vercel.app/)  
-[**Live Backend**] (https://ride-booking-system-one.vercel.app/)
-[**Frontend Code base**] (https://github.com/muhamash/ride-system-frontend.git)
-[**Backend Code base**] (https://github.com/muhamash/Ride-Booking-System.git)
+[**Live Demo**](https://choloride-frontend.vercel.app)  
+[**Live Backend**] (https://choloride-backend.vercel.app)
+
 ---
 
 ---
@@ -15,16 +14,15 @@ A scalable, production-grade, and fully responsive **ride booking platform** sim
 ### Demo credentials
 
 ## Admin
-email : ash@test.admin
-password : ash@test.adminM
-
+email : shovon@admin.com
+password : Shovon@22
 ## Rider
-email : ash@test.rider
-password : ash@test.riderM
+email : shovon@rider.com
+password : Shovon@22
 
 ## Driver
-email : ash@test.driver
-password : ash@test.driverM
+email : shovon@driver.com
+password : Shovon@22
 
 
 ---
@@ -108,22 +106,20 @@ It interacts with a backend API to offer ride booking, real-time tracking, user 
 
 ### **1. Clone the repository**
 ```bash
-git clone https://github.com/muhamash/ride-system-frontend.git
-cd ride-management-frontend
+git clone
+cd your folder
 ```
 
 ### **2. Install dependencies**
 ```bash
 bun install
-# or
-yarn install
 ```
 
 ### **3. Set up environment variables**
 Create a `.env` file in the root directory:
 ```
-VITE_BASE_URL = http://localhost:3000/api
-LOCATIONIQTOKEN = LOCATIONIQTOKEN-maps-api-key
+VITE_BASE_URL = http://localhost:5000/api
+LOCATIONIQTOKEN = maps-api-key
 ```
 
 ### **4. Run the development server**
@@ -158,10 +154,5 @@ src/
 - **Lazy-loading** for better performance.  
 - **Role-based access** using HOCs & conditional rendering.  
 - **Form validation** with clear error messages.    
-
----
-
-## 🌐 Live Deployment  
-[Live Demo](https://ride-system-frontend.vercel.app/)
 
 ---
