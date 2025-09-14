@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useMyToast } from "../layouts/MyToast";
+import { motion } from 'framer-motion';
 
 const contactSchema = z.object({
   name: z.string().nonempty("Name is required"),
@@ -31,7 +32,7 @@ export default function ContactPage() {
       console.log("Form submitted:", values);
       setIsLoading(false);
       form.reset();
-      showToast({type:"info", message:"Fake submission!!"})
+      showToast({ type: "info", message: "Fake submission!!" })
     });
   };
 
@@ -57,23 +58,35 @@ export default function ContactPage() {
   ];
 
   return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pb-10">
-          <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-emerald-600 text-white py-30 mb-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Powerful Contact info
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 pb-10">
+      {/* Hero Section */}
+      <section
+        className="relative h-[70vh] w-full bg-cover bg-center border-b border-gray-200"
+        style={{
+          backgroundImage: "url('/contatct-page-banner.jpg')",
+        }}
+      >
+        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-full flex items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-left max-w-xl"
+          >
+            <h1 className="text-3xl lg:text-5xl font-extrabold leading-tight mb-6 text-white drop-shadow-lg">
+              CONTACT WITH
+              <span className="text-primary italic"> CHOLORIDE</span>
             </h1>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              Discover the comprehensive contact that make Let's Ride the best choice for nothing but a project
+            <p className="text-lg lg:text-xl text-white mb-8 leading-relaxed">
+              Discover the comprehensive contact that make CHOLORIDE the best choice for nothing but a project
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
-      <div className="w-full mx-auto space-y-12 px-5">
-        
+
 
         {/* Company Offices Section */}
+      <div className="w-full mx-auto mt-16 space-y-20 px-5">
         <div className="grid md:grid-cols-3 gap-6">
           {offices.map((office, index) => (
             <Card key={index} className="shadow-lg">
