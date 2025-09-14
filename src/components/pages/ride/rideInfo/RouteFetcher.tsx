@@ -42,7 +42,7 @@ export default function RouteFetcher({ ride }: any) {
           payloadTemplate( pickupCoords, dropOffCoords )
         ).unwrap();
         
-        console.log( "Fetching route", routeToPickup, routeToDropoff );
+        // console.log( "Fetching route", routeToPickup, routeToDropoff );
         setLocation( {
           driveToPickUp: routeToPickup.data,
           drivePickUpToDrop: routeToDropoff.data,

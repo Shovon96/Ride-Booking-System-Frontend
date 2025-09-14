@@ -43,7 +43,6 @@ export default function DropDownMenu ( { user }: IDropDownMenu )
         {
             const res = await blockUserById( { id: user?._id, blockParam: action } ).unwrap();
 
-            console.log(res.data)
             updateToast( toastId, {
                 message: res?.message,
                 type: "success"

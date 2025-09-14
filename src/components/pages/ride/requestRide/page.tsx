@@ -89,9 +89,9 @@ export default function RequestRide() {
           overview: "full",
         }).unwrap();
 
-        console.log(response.data.routes[0].distance / 1000, "km");
+        // console.log(response.data.routes[0].distance / 1000, "km");
 
-        console.log("Route data:", response.data.routes);
+        // console.log("Route data:", response.data.routes);
         rideTypesDataRef.current = {
           distance: response.data.routes[0].distance,
           duration: response.data.routes[0].duration,
@@ -170,12 +170,10 @@ export default function RequestRide() {
 
     try {
       const res = await requestRide({ payload }).unwrap();
-      console.log(res);
       updateToast(toastId, {
         type: "success",
         message: res?.message
       });
-      console.log(payload);
       navigate(`/ride/ride-info/${res?.data?.ride?._id}`);
     }
     catch (error: any) { // <-- added `any` to avoid unknown error type

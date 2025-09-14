@@ -8,32 +8,28 @@ export const axiosBaseQuery =
     ): BaseQueryFn<
         {
             url: string
-            method?: AxiosRequestConfig[ 'method' ]
-            data?: AxiosRequestConfig[ 'data' ]
-            params?: AxiosRequestConfig[ 'params' ]
-            headers?: AxiosRequestConfig[ 'headers' ]
+            method?: AxiosRequestConfig['method']
+            data?: AxiosRequestConfig['data']
+            params?: AxiosRequestConfig['params']
+            headers?: AxiosRequestConfig['headers']
         },
         unknown,
         unknown
     > =>
-        async ( { url, method, data, params, headers } ) =>
-        {
-            console.log( url, method )
-            try
-            {
-                const result = await axiosInstance( {
+        async ({ url, method, data, params, headers }) => {
+            try {
+                const result = await axiosInstance({
                     url,
                     method,
                     data,
                     params,
                     headers,
-                } );
-                
+                });
+
                 // console.log(result)
                 return { data: result.data }
             }
-            catch ( axiosError )
-            {
+            catch (axiosError) {
                 const err = axiosError as AxiosError
                 return {
                     error: {

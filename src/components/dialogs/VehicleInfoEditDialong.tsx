@@ -82,7 +82,7 @@ export function VehicleEditModal({
         setIsLoading(true);
         try {
 
-            console.log(data, userId)
+            // console.log(data, userId)
             await editVehicleInfo( {
                 id: userId,
                 payload: data

@@ -68,8 +68,6 @@ export default function RegistrationForm ()
 
     const onSubmit = async( data: RegistrationSchemaType ) =>
     {
-        console.log( "SUBMIT CALLED" );
-        console.log( data );
         const toastId = showToast( {
             message: "Trying to create a user..",
             type: "loading",
@@ -79,7 +77,7 @@ export default function RegistrationForm ()
         try 
         {
             const res = await register( data );
-            console.log(res)
+            // console.log(res)
 
             if ( res?.data?.statusCode === 201 )
             {

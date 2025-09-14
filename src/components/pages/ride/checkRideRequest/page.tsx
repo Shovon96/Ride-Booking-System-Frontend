@@ -72,7 +72,7 @@ export default function CheckRideRequestPage() {
       setErrorMessage(null);
       const response = await checkRideRequest(undefined).unwrap();
       const rides = response?.data?.rides || [];
-      console.log(rides)
+      // console.log(rides)
 
       const formattedRides = rides.map((ride: any) => ({
         id: ride.id,

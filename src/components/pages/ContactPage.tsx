@@ -29,7 +29,7 @@ export default function ContactPage() {
   const onSubmit = (values: never) => {
     setIsLoading(true);
     new Promise((resolve) => setTimeout(resolve, 1000)).then(() => {
-      console.log("Form submitted:", values);
+      // console.log("Form submitted:", values);
       setIsLoading(false);
       form.reset();
       showToast({ type: "info", message: "Fake submission!!" })

@@ -73,7 +73,7 @@ export default function UpdateProfileModal({ user }: IUserModalProps) {
   {
     try
     {
-      console.log( "Update name:", data, user );
+      // console.log( "Update name:", data, user );
 
       await editUser( {
         id: user?._id,
@@ -94,7 +94,7 @@ export default function UpdateProfileModal({ user }: IUserModalProps) {
   {
     try
     {
-      console.log( "Update :", data, user );
+      // console.log( "Update :", data, user );
 
       const payload = { 
           newPassword: data.newPassword,

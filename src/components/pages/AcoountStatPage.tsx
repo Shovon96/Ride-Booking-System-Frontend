@@ -20,7 +20,7 @@ const AccountStatusPage = () => {
     const location = useLocation();
     const params = useParams();
 
-    console.log( location?.state,params );
+    // console.log( location?.state,params );
 
     const [ accountStatus, setAccountStatus ] = useState<"SUSPENDED" | "BLOCKED">( location?.state );
     

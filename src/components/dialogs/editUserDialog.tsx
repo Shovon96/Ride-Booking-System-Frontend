@@ -91,7 +91,7 @@ export default function EditUserDialog({ user }: IEditUserDialog) {
       return;
     }
 
-    console.log( "Updating user with:", updates );
+    // console.log( "Updating user with:", updates );
 
     try
     {

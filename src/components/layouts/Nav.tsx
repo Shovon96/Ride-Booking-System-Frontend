@@ -49,8 +49,8 @@ const Navbar = () => {
   // console.log(auth?.login?.url)
 
   const handleLogout = async () => {
-    const res = await logout(undefined);
-    console.log("logout", res);
+    await logout(undefined);
+    // console.log("logout", res);
 
     dispatch(authApi.util.resetApiState());
     navigate("/login")
