@@ -146,7 +146,7 @@ export default function RequestRide() {
   const handleRequestRide = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!destinationCoords) {
-      alert("Please select valid pickup and destination locations");
+      showToast({ type: "error", message: "Please select valid pickup and destination locations" });
       return;
     }
 
@@ -156,9 +156,9 @@ export default function RequestRide() {
     }
 
     // ✅ Safe access + fixed type error
-    const selectedFare = rideTypesDataRef.current.fare[rideType]; // <-- rideType is typed
+    const selectedFare = rideTypesDataRef.current.fare[rideType];
     const payload = {
-      fare: selectedFare ? selectedFare.toFixed(2) : "20", // <-- fixed error
+      fare: selectedFare ? Number(Number(selectedFare).toFixed(2)) : 20, 
       lat: destinationCoords.lat,
       lng: destinationCoords.lng,
       picLat: pickupCoords?.lat,

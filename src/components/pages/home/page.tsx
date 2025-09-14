@@ -164,7 +164,7 @@ const Home = () => {
                     role ? role : "Login"
                   }
                 </Link>
-                {UserRole.DRIVER && role === UserRole.DRIVER &&
+                {UserRole.DRIVER && role === UserRole.DRIVER && (
                   <div
                     onClick={handleDriverClick}
                     className="border-2 border-white text-muted-foreground px-5 py-2 rounded-full font-semibold text-lg hover:bg-white hover:text-primary transition-colors duration-200 flex items-center justify-center cursor-pointer"
@@ -172,7 +172,7 @@ const Home = () => {
                     <TrendingUp />
                     {role === UserRole.DRIVER ? "Go for drive!" : "Drive & Earn"}
                   </div>
-                }
+                )}
                 <div className="flex flex-col sm:flex-row gap-4">
                   {
                     !role && (

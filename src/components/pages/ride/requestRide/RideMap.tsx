@@ -55,11 +55,11 @@ export default function RideMap({
   const onlineDriverData = onlineDrivers
     ? onlineDrivers?.map((driver: any) => ({
       id: driver.email,
-      lat: driver?.location?.coordinates[0],
-      lng: driver?.location?.coordinates[1],
+      lat: driver?.location?.coordinates[1] || "",
+      lng: driver?.location?.coordinates[0] || "",
     }))
     : [];
-    console.log(onlineDriverData)
+    console.log("Online Drivers",onlineDriverData)
 
   return (
     <Card className="shadow-lg -z-100">

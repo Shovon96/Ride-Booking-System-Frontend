@@ -2,11 +2,72 @@ import UpdateProfileModal from "@/components/dialogs/UpdateProfile";
 import { VehicleEditModal } from "@/components/dialogs/VehicleInfoEditDialong";
 import { Badge } from "@/components/ui/badge";
 import { UserRole } from "@/constants/userRole";
-import { useUserDataQuery } from "@/redux/features/api/auth.api";
+import { authApi, useUserDataQuery } from "@/redux/features/api/auth.api";
+import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useContinuousLocation } from "@/components/hooks/useGeolocation";
+import { useEditUserByIdMutation } from "@/redux/features/api/admin.api";
+import { useForm } from "react-hook-form";
+import { useMyToast } from "@/components/layouts/MyToast";
+import { useAppDispatch } from "@/redux/hooks";
+
 
 export default function UserInfo() {
-  const { data } = useUserDataQuery();
+  const { data } = useUserDataQuery(undefined);
+  const [editUserById, isLoading] = useEditUserByIdMutation();
+  const userId = data?.data?._id || "";
+  const { coords, retry } = useContinuousLocation(userId);
+  const [useCurrentLocation, setUseCurrentLocation] = useState(true);
+  const [pickupLocation, setPickupLocation] = useState("");
+  const [pickupCoords, setPickupCoords] = useState<{ lat: number; lng: number } | null>(null);
+  const { showToast } = useMyToast();
+  const dispatch = useAppDispatch();
 
+  // Auto-update pickup if using current location
+  useEffect(() => {
+    if (useCurrentLocation && coords) {
+      setPickupLocation(coords.address || "");
+      setPickupCoords({ lat: coords.lat, lng: coords.lng });
+    }
+  }, [useCurrentLocation, coords]);
+
+  const { handleSubmit } = useForm({
+    defaultValues: {
+      location: {
+        lat: pickupCoords?.lat || "",
+        lng: pickupCoords?.lng || "",
+        address: pickupLocation || "",
+      },
+    },
+  });
+
+  // Submit Update Location
+  const onSubmit = async () => {
+    try {
+      const payload = {
+        location: {
+          type: "Point",
+          coordinates: [
+            pickupCoords?.lng, // ✅ longitude first
+            pickupCoords?.lat, // ✅ then latitude
+          ],
+          address: pickupLocation,
+        },
+      };
+
+      if (isLoading) {
+        showToast({ message: "Location updating.....", type: "loading" });
+      }
+      await editUserById({ id: userId, payload }).unwrap();
+      dispatch(authApi.util.resetApiState());
+      showToast({ message: "Location updated successfully", type: "success" });
+      // window.location.reload()
+    } catch (err) {
+      console.error("❌ Failed to update location:", err);
+      showToast({ message: `Internel server error`, type: "error" });
+    }
+  };
 
   if (!data || !data.data) {
     return (
@@ -22,7 +83,7 @@ export default function UserInfo() {
   const user = data.data;
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8 py-30">
+    <div className="min-h-screen bg-gray-50 px-4 sm:px-6 lg:px-8 py-30">
       <div className="max-w-4xl mx-auto">
         <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
           {/* Header Section */}
@@ -49,23 +110,23 @@ export default function UserInfo() {
                   </svg>
                   Basic Information
                 </h2>
-                
+
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-600 mb-1">Full Name</label>
                     <p className="text-gray-800">{user.name}</p>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-600 mb-1">Email Address</label>
                     <p className="text-gray-800">{user.email}</p>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-600 mb-1">Username</label>
                     <p className="text-gray-800">{user.username}</p>
                   </div>
-                  
+
                   <div className="flex flex-col gap-3">
                     <label className="block text-sm font-medium text-gray-600 mb-1">Role</label>
                     <Badge className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
@@ -106,28 +167,28 @@ export default function UserInfo() {
                   </svg>
                   Status Information
                 </h2>
-                
+
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-600 mb-1">Account Status</label>
-                    <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${ user.isBlocked ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800' }`}>
+                    <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${user.isBlocked ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
                       {user.isBlocked ? 'Blocked' : 'Active'}
                     </div>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-600 mb-1">Online Status</label>
                     <div className="flex items-center">
-                      <div className={`h-3 w-3 rounded-full mr-2 ${ user.isOnline ? 'bg-green-500' : 'bg-gray-400' }`}></div>
+                      <div className={`h-3 w-3 rounded-full mr-2 ${user.isOnline ? 'bg-green-500' : 'bg-gray-400'}`}></div>
                       <span className={user.isOnline ? "text-green-600 font-medium" : "text-gray-600"}>
                         {user.isOnline ? "Online" : "Offline"}
                       </span>
                     </div>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-600 mb-1">Last Online</label>
-                    <p className="text-gray-800">{new Date( user.lastOnlineAt ).toLocaleString()}</p>
+                    <p className="text-gray-800">{new Date(user.lastOnlineAt).toLocaleString()}</p>
                   </div>
                 </div>
               </div>
@@ -138,12 +199,29 @@ export default function UserInfo() {
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                   </svg>
-                  Current Location
+                  <Button
+                    type="button"
+                    className="cursor-pointer"
+                    variant={useCurrentLocation ? "outline" : "outline"}
+                    onClick={() => {
+                      retry();
+                      setUseCurrentLocation(true);
+                      handleSubmit(onSubmit)();
+                      // window.location.reload();
+                    }}
+                  >
+                    Update Current Location
+                  </Button>
                 </h2>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-600 mb-1">Address</label>
                   <p className="text-gray-800">{user.location?.address || 'No address provided'}</p>
+                  <Input
+                    value={pickupLocation || "no location found!"}
+                    readOnly
+                    className="bg-gray-100 w-full hidden"
+                  />
                 </div>
               </div>
 
@@ -155,16 +233,16 @@ export default function UserInfo() {
                   </svg>
                   Account Dates
                 </h2>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-600 mb-1">Created At</label>
-                    <p className="text-gray-800">{new Date( user.createdAt ).toLocaleString()}</p>
+                    <p className="text-gray-800">{new Date(user.createdAt).toLocaleString()}</p>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-600 mb-1">Last Updated</label>
-                    <p className="text-gray-800">{new Date( user.updatedAt ).toLocaleString()}</p>
+                    <p className="text-gray-800">{new Date(user.updatedAt).toLocaleString()}</p>
                   </div>
                 </div>
               </div>

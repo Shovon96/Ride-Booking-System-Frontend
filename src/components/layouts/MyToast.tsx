@@ -36,7 +36,7 @@ export function useMyToast() {
     error: <XCircle className="text-white" size={24} />,
     info: <SquareActivityIcon className="text-white" size={24} />,
     danger: <XIcon className="text-white" size={24} />,
-    loading: <Loader2Icon className="text-violet-800 animate-spin" size={24} />,
+    loading: <Loader2Icon className="text-primary animate-spin" size={24} />,
   };
 
   // Default gradient glass styles
