@@ -11,6 +11,19 @@ export default function LoginPage() {
             <Logo />
           </div>
         </div>
+        <div className="bg-white shadow-md rounded-lg p-2 border w-full max-w-md mx-auto">
+          <div className="space-y-2">
+            <div>
+              <p><span className="font-medium">Admin:</span> shovon@admin.com</p>
+              <p><span className="font-medium">Driver:</span> shovon@driver.com</p>
+              <p><span className="font-medium">Rider:</span> shovon@rider.com</p>
+            </div>
+            <div className="mt-4">
+              <p><span className="font-medium">Password:</span> Shovon@22</p>
+            </div>
+          </div>
+        </div>
+
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-sm">
             <LoginForm />
