@@ -17,7 +17,8 @@ import {
 import { Link, useNavigate } from 'react-router';
 import CountUp from "react-countup";
 import homePageImage from '/login.webp'
-
+import { useEffect, useState } from 'react';
+import { MyModal } from '@/components/dialogs/MyModal';
 
 const Home = () => {
 
@@ -126,329 +127,360 @@ const Home = () => {
 
   }
 
+  const [open, setOpen] = useState(false)
+
+  const isDriver = data?.data?.role === "DRIVER"
+
+  useEffect(() => {
+    if (isDriver) {
+      setOpen(true)
+    }
+  }, [isDriver])
+
+  const handleConfirm = () => {
+    setOpen(false)
+  }
+
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section
-        style={{
-          backgroundImage: "url('/choloride-hero-banner-image.png')",
-        }}
-        className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-purple-800 text-white overflow-hidden">
-        {/* <div className="absolute inset-0 bg-black/20"></div> */}
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="text-3xl lg:text-5xl font-bold leading-tight mb-6 text-muted-foreground">
-                SAFE AND FAST WAY WITH
-                <span className="text-primary font-bold italic text-shadow-lg text-shadow-amber-400"> CHOLORIDE</span>
-              </h1>
-              <p className="text-xl lg:text-2xl text-muted-foreground mb-8 leading-relaxed">
-                Experience seamless transportation with verified drivers, real-time tracking, and affordable rates.
-              </p>
+    <>
+      {isDriver && !data?.data?.location && (
+        <MyModal
+          open={open}
+          onOpenChange={setOpen}
+          title={`Welcome ${data?.data?.name}`}
+          description="Need to your updated location. Please Update!"
+          onConfirm={handleConfirm}
+          confirmLabel="Update Location"
+          // cancelLabel="Close"
+        >
+          <p className="text-lg text-primary">
+            Please update your current location to accept ride requests. You can find the 'Update Location' button at the bottom of the User Info page.
+          </p>
+        </MyModal>
+      )}
+      <div className="min-h-screen">
+        {/* Hero Section */}
+        <section
+          style={{
+            backgroundImage: "url('/choloride-hero-banner-image.png')",
+          }}
+          className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-purple-800 text-white overflow-hidden">
+          {/* <div className="absolute inset-0 bg-black/20"></div> */}
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                <h1 className="text-3xl lg:text-5xl font-bold leading-tight mb-6 text-muted-foreground">
+                  SAFE AND FAST WAY WITH
+                  <span className="text-primary font-bold italic text-shadow-lg text-shadow-amber-400"> CHOLORIDE</span>
+                </h1>
+                <p className="text-xl lg:text-2xl text-muted-foreground mb-8 leading-relaxed">
+                  Experience seamless transportation with verified drivers, real-time tracking, and affordable rates.
+                </p>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="flex flex-col sm:flex-row gap-4 justify-center py-2 place-self-start"
+                >
+                  <Link
+                    to={role ? "/user" : "/login"}
+                    className="bg-chart-4 text-background px-8 py-2 rounded-full font-semibold text-lg hover:bg-primary transition-colors duration-200 flex items-center justify-center"
+                  >
+                    <Users />
+                    {
+                      role ? role : "Login"
+                    }
+                  </Link>
+                  {UserRole.DRIVER && role === UserRole.DRIVER && (
+                    <div
+                      onClick={handleDriverClick}
+                      className="border-2 border-white text-muted-foreground px-5 py-2 rounded-full font-semibold text-lg hover:bg-white hover:text-primary transition-colors duration-200 flex items-center justify-center cursor-pointer"
+                    >
+                      <TrendingUp />
+                      {role === UserRole.DRIVER ? "Go for drive!" : "Drive & Earn"}
+                    </div>
+                  )}
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    {
+                      !role && (
+                        <Link
+                          to={"/registration"}
+                          className="text-foreground border border-muted-foreground px-6 py-3 rounded-full font-semibold text-lg hover:bg-muted transition-all duration-200 flex items-center justify-center group"
+                        >
+                          Get Started Today
+                          <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                      )
+                    }
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Stats Section */}
+        <section className="py-16 bg-background">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+              {stats.map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: false, amount: 0.3 }}
+                  className="text-center"
+                >
+                  <div className="text-3xl lg:text-4xl font-bold text-chart-4 mb-2">
+                    <CountUp
+                      start={0}
+                      end={stat.number}
+                      duration={3.5}
+                      suffix={stat.suffix}
+                      enableScrollSpy
+                      scrollSpyOnce={false}
+                    />
+                  </div>
+                  <div className="text-foreground font-medium">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section className="py-20 bg-muted">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4"
+              >
+                <span className="text-primary font-bold text-shadow-lg text-shadow-gray-400">HOW IT WORKS</span>
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-xl text-gray-600 max-w-3xl mx-auto"
+              >
+                Getting a ride is easier than ever. Just follow these simple steps.
+              </motion.p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {howItWorksData?.map((item, index) => (
+                <motion.div
+                  key={item.step}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  className="text-center group border border-primary px-6 py-8 rounded-lg hover:bg-background hover:text-foreground transition-colors duration-300 shadow-md shadow-primary/20"
+                >
+                  <div className="relative mb-8">
+                    <div className=" text-white rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform duration-200">
+                      {item.icon}
+                    </div>
+                    <div className="absolute -top-11 -right-7 p-3 bg-chart-3 text-foreground rounded-full flex items-center justify-center text-sm font-bold">
+                      {item.step}
+                    </div>
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">{item.title}</h3>
+                  <p className="text-gray-600">{item.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4"
+              >
+                WHY CHOOSE <span className="text-primary font-bold italic text-shadow-lg text-shadow-amber-400"> CHOLORIDE</span>
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-xl text-gray-600 max-w-3xl mx-auto"
+              >
+                We're committed to providing the best ride-sharing experience with cutting-edge technology and exceptional service.
+              </motion.p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {features.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200 border border-gray-100 text-center group"
+                >
+                  <div className="mb-4 group-hover:scale-110 transition-transform duration-200">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">{feature.title}</h3>
+                  <p className="text-gray-600">{feature.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Image with Text Section */}
+        <section className="py-16 bg-muted">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-center">
+            {/* Left Image Section */}
+            <div className="md:w-1/2 w-full flex justify-center mb-6 md:mb-0">
+              <img
+                src={homePageImage}
+                alt="Bike Rider"
+                className="rounded-lg shadow-md w-full max-w-md"
+              />
+            </div>
+
+            {/* Right Text Section */}
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                className="text-2xl lg:text-4xl mb-6 uppercase text-primary font-bold text-shadow-lg text-shadow-gray-400"
+              >
+                {
+                  role ? "You can start the journey from here!" : "Ready to Start Your Journey?"
+                }
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <ul className='text-lg mb-8 text-foreground leading-10'>
+                  <li>✔ Fast, Safe & Easy Income for a better lifestyle</li>
+                  <li>✔ Scope to avail bonus offers</li>
+                  <li>✔ Hassle free on-time Payment</li>
+                </ul>
+              </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center py-2 place-self-start"
+                className="flex flex-col sm:flex-row gap-4"
               >
                 <Link
-                  to={role ? "/user" : "/login"}
-                  className="bg-chart-4 text-background px-8 py-2 rounded-full font-semibold text-lg hover:bg-primary transition-colors duration-200 flex items-center justify-center"
+                  to={role ? "/user" : "/registration"}
+                  className="bg-primary text-white px-6 py-2 rounded-full font-semibold text-lg hover:bg-red-500 transition-colors duration-200 flex items-center justify-center"
                 >
-                  <Users />
+                  <Users className="mr-2" />
                   {
-                    role ? role : "Login"
+                    role ? role : "Register"
                   }
                 </Link>
-                {UserRole.DRIVER && role === UserRole.DRIVER && (
-                  <div
-                    onClick={handleDriverClick}
-                    className="border-2 border-white text-muted-foreground px-5 py-2 rounded-full font-semibold text-lg hover:bg-white hover:text-primary transition-colors duration-200 flex items-center justify-center cursor-pointer"
-                  >
-                    <TrendingUp />
-                    {role === UserRole.DRIVER ? "Go for drive!" : "Drive & Earn"}
-                  </div>
-                )}
-                <div className="flex flex-col sm:flex-row gap-4">
-                  {
-                    !role && (
-                      <Link
-                        to={"/registration"}
-                        className="text-foreground border border-muted-foreground px-6 py-3 rounded-full font-semibold text-lg hover:bg-muted transition-all duration-200 flex items-center justify-center group"
-                      >
-                        Get Started Today
-                        <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    )
-                  }
+                <div
+                  onClick={handleDriverClick}
+                  className="border-2 border-foreground text-foreground px-6 py-2 rounded-full font-semibold text-lg hover:bg-white hover:text-primary transition-colors duration-200 flex items-center justify-center cursor-pointer"
+                >
+                  <TrendingUp className="mr-2" />
+                  Drive & Earn
                 </div>
               </motion.div>
-            </motion.div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Stats Section */}
-      <section className="py-16 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={stat.label}
+        {/* Testimonials Section */}
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <motion.h2
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                viewport={{ once: false, amount: 0.3 }}
-                className="text-center"
+                className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4"
               >
-                <div className="text-3xl lg:text-4xl font-bold text-chart-4 mb-2">
-                  <CountUp
-                    start={0}
-                    end={stat.number}
-                    duration={3.5}
-                    suffix={stat.suffix}
-                    enableScrollSpy
-                    scrollSpyOnce={false}
-                  />
-                </div>
-                <div className="text-foreground font-medium">{stat.label}</div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section className="py-20 bg-muted">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4"
-            >
-              <span className="text-primary font-bold text-shadow-lg text-shadow-gray-400">HOW IT WORKS</span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl text-gray-600 max-w-3xl mx-auto"
-            >
-              Getting a ride is easier than ever. Just follow these simple steps.
-            </motion.p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {howItWorksData?.map((item, index) => (
-              <motion.div
-                key={item.step}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="text-center group border border-primary px-6 py-8 rounded-lg hover:bg-background hover:text-foreground transition-colors duration-300 shadow-md shadow-primary/20"
-              >
-                <div className="relative mb-8">
-                  <div className=" text-white rounded-full flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform duration-200">
-                    {item.icon}
-                  </div>
-                  <div className="absolute -top-11 -right-7 p-3 bg-chart-3 text-foreground rounded-full flex items-center justify-center text-sm font-bold">
-                    {item.step}
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{item.title}</h3>
-                <p className="text-gray-600">{item.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4"
-            >
-              WHY CHOOSE <span className="text-primary font-bold italic text-shadow-lg text-shadow-amber-400"> CHOLORIDE</span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl text-gray-600 max-w-3xl mx-auto"
-            >
-              We're committed to providing the best ride-sharing experience with cutting-edge technology and exceptional service.
-            </motion.p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
+                <span className="text-primary font-bold text-shadow-lg text-shadow-gray-400">CUSTOMER TESTIMONIAL</span>
+              </motion.h2>
+              <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white p-4 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-200 border border-gray-100 text-center group"
+                transition={{ delay: 0.2 }}
+                className="text-xl text-gray-600 max-w-3xl mx-auto"
               >
-                <div className="mb-4 group-hover:scale-110 transition-transform duration-200">
-                  {feature.icon}
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-3">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+                Don't just take our word for it. Here's what our satisfied customers have to say.
+              </motion.p>
+            </div>
 
-      {/* Image with Text Section */}
-      <section className="py-16 bg-muted">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-center">
-          {/* Left Image Section */}
-          <div className="md:w-1/2 w-full flex justify-center mb-6 md:mb-0">
-            <img
-              src={homePageImage}
-              alt="Bike Rider"
-              className="rounded-lg shadow-md w-full max-w-md"
-            />
-          </div>
-
-          {/* Right Text Section */}
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="text-2xl lg:text-4xl mb-6 uppercase text-primary font-bold text-shadow-lg text-shadow-gray-400"
-            >
-              {
-                role ? "You can start the journey from here!" : "Ready to Start Your Journey?"
-              }
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <ul className='text-lg mb-8 text-foreground leading-10'>
-                <li>✔ Fast, Safe & Easy Income for a better lifestyle</li>
-                <li>✔ Scope to avail bonus offers</li>
-                <li>✔ Hassle free on-time Payment</li>
-              </ul>
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-4"
-            >
-              <Link
-                to={role ? "/user" : "/registration"}
-                className="bg-primary text-white px-6 py-2 rounded-full font-semibold text-lg hover:bg-red-500 transition-colors duration-200 flex items-center justify-center"
-              >
-                <Users className="mr-2" />
-                {
-                  role ? role : "Register"
-                }
-              </Link>
-              <div
-                onClick={handleDriverClick}
-                className="border-2 border-foreground text-foreground px-6 py-2 rounded-full font-semibold text-lg hover:bg-white hover:text-primary transition-colors duration-200 flex items-center justify-center cursor-pointer"
-              >
-                <TrendingUp className="mr-2" />
-                Drive & Earn
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4"
-            >
-              <span className="text-primary font-bold text-shadow-lg text-shadow-gray-400">CUSTOMER TESTIMONIAL</span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-xl text-gray-600 max-w-3xl mx-auto"
-            >
-              Don't just take our word for it. Here's what our satisfied customers have to say.
-            </motion.p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="bg-white p-6 rounded-xl shadow-lg"
-              >
-                <div className="flex items-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
-                  ))}
-                </div>
-                <p className="text-gray-700 mb-6 italic">"{testimonial.comment}"</p>
-                <div className="flex items-center">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-10 h-10 rounded-full mr-4 object-cover"
-                  />
-                  <div>
-                    <div className="font-bold text-gray-900">{testimonial.name}</div>
-                    <div className="text-sm text-gray-600">{testimonial.role}</div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {testimonials.map((testimonial, index) => (
+                <motion.div
+                  key={testimonial.name}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.2 }}
+                  className="bg-white p-6 rounded-xl shadow-lg"
+                >
+                  <div className="flex items-center mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                    ))}
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                  <p className="text-gray-700 mb-6 italic">"{testimonial.comment}"</p>
+                  <div className="flex items-center">
+                    <img
+                      src={testimonial.image}
+                      alt={testimonial.name}
+                      className="w-10 h-10 rounded-full mr-4 object-cover"
+                    />
+                    <div>
+                      <div className="font-bold text-gray-900">{testimonial.name}</div>
+                      <div className="text-sm text-gray-600">{testimonial.role}</div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
+        </section>
+
+        {/* Newsletter Section */}
+        <div className="mx-auto pt-16 pb-12 bg-gray-900">
+          <strong className="block text-center text-xl font-bold text-white sm:text-3xl">
+            Want us to email you with the latest blockbuster news?
+          </strong>
+
+          <form className="mt-6 mx-auto max-w-md">
+            <div className="relative max-w-lg">
+              <label className="sr-only" htmlFor="email"> Email </label>
+
+              <input
+                className="w-full rounded-full border border-input bg-muted p-4 pe-32 text-sm font-medium text-foreground placeholder:text-muted-foreground"
+                id="email"
+                type="email"
+                placeholder="john@doe.com"
+              />
+
+              <button
+                className="absolute end-1 top-1/2 -translate-y-1/2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition hover:bg-primary/90"
+              >
+                Subscribe
+              </button>
+            </div>
+          </form>
         </div>
-      </section>
-
-      {/* Newsletter Section */}
-      <div className="mx-auto pt-16 pb-12 bg-gray-900">
-        <strong className="block text-center text-xl font-bold text-white sm:text-3xl">
-          Want us to email you with the latest blockbuster news?
-        </strong>
-
-        <form className="mt-6 mx-auto max-w-md">
-          <div className="relative max-w-lg">
-            <label className="sr-only" htmlFor="email"> Email </label>
-
-            <input
-              className="w-full rounded-full border border-input bg-muted p-4 pe-32 text-sm font-medium text-foreground placeholder:text-muted-foreground"
-              id="email"
-              type="email"
-              placeholder="john@doe.com"
-            />
-
-            <button
-              className="absolute end-1 top-1/2 -translate-y-1/2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition hover:bg-primary/90"
-            >
-              Subscribe
-            </button>
-          </div>
-        </form>
       </div>
-    </div>
+    </>
   );
 };
 
