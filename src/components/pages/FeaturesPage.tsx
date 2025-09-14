@@ -1,19 +1,20 @@
 import { Card } from '@/components/ui/card';
 import {
-    BarChart3,
-    Bell,
-    Clock,
-    CreditCard,
-    HeadphonesIcon,
-    Lock,
-    MapPin,
-    Shield,
-    Smartphone,
-    Star,
-    Users,
-    Zap
+  BarChart3,
+  Bell,
+  Clock,
+  CreditCard,
+  HeadphonesIcon,
+  Lock,
+  MapPin,
+  Shield,
+  Smartphone,
+  Star,
+  Users,
+  Zap
 } from 'lucide-react';
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const FeaturesPage: React.FC = () => {
   const riderFeatures = [
@@ -144,19 +145,29 @@ const FeaturesPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      
+
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 via-blue-700 to-emerald-600 text-white py-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              Powerful Features
+      <section
+        className="relative h-[70vh] w-full bg-cover bg-center border-b border-gray-200"
+        style={{
+          backgroundImage: "url('/feature-page-image.png')",
+        }}
+      >
+        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-full flex items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-left max-w-xl"
+          >
+            <h1 className="text-3xl lg:text-5xl font-extrabold leading-tight mb-6 text-white drop-shadow-lg">
+              POWERFULL FEATURES OF
+              <span className="text-primary italic"> CHOLORIDE</span>
             </h1>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto">
-              Discover the comprehensive features that make Let's Ride the best choice for 
-              riders, drivers, and administrators.
+            <p className="text-lg lg:text-xl text-white mb-8 leading-relaxed max-w-lg">
+              Discover the comprehensive features that make CHOLORIDE the best choice for riders, drivers, and administrators.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -275,7 +286,7 @@ const FeaturesPage: React.FC = () => {
               Built with Modern Technology
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Our platform is built using cutting-edge technology to ensure reliability, 
+              Our platform is built using cutting-edge technology to ensure reliability,
               scalability, and exceptional user experience.
             </p>
           </div>
@@ -299,7 +310,7 @@ const FeaturesPage: React.FC = () => {
             </div>
           </div>
         </div>
-        <hr  className='bg-green-500 p-[0.1px] mt-10 w-[80%] mx-auto'/>
+        <hr className='bg-green-500 p-[0.1px] mt-10 w-[80%] mx-auto' />
       </section>
 
     </div>
