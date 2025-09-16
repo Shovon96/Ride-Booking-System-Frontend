@@ -82,9 +82,8 @@ export const useContinuousLocation = (userId: string) => {
         if (!userId) return;
 
         // send data to backend
-        // socketRef.current = io("https://choloride-backend.vercel.app/api");
-        // socketRef.current = io("https://ride-booking-system-one.vercel.app/api");
-        socketRef.current = io("http://localhost:5000/api");
+        socketRef.current = io("https://choloride-backend.vercel.app/api");
+        // socketRef.current = io("http://localhost:5000/api");
         startTracking();
 
         return () => {

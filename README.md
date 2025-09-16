@@ -1,10 +1,10 @@
 
-# 🚖 Ride Management System – Frontend  
+# 🚖 Ride Booking System – Frontend  
 
 A scalable, production-grade, and fully responsive **ride booking platform** similar to **Uber** or **Pathao**, built with **React**, **Redux Toolkit**, and **RTK Query**.  
 
-[**Live Demo**](https://choloride-frontend.vercel.app)  
-[**Live Backend**] (https://choloride-backend.vercel.app)
+## Live Demo - (https://choloride-frontend.vercel.app)  
+## Live Backend - (https://choloride-backend.vercel.app)
 
 ---
 
