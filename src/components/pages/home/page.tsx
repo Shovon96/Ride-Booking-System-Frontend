@@ -151,7 +151,7 @@ const Home = () => {
           description="Need to your updated location. Please Update!"
           onConfirm={handleConfirm}
           confirmLabel="Update Location"
-          // cancelLabel="Close"
+        // cancelLabel="Close"
         >
           <p className="text-lg text-primary">
             Please update your current location to accept ride requests. You can find the 'Update Location' button at the bottom of the User Info page.
@@ -159,8 +159,12 @@ const Home = () => {
         </MyModal>
       )}
       <div className="min-h-screen">
-        <HeroSection role={role} handleDriverClick={handleDriverClick} />
-        <StatsSection stats={stats} />
+        <div className='relative'>
+          <HeroSection role={role} handleDriverClick={handleDriverClick} />
+        </div>
+        <div className='absolute w-full -mt-10 z-19'>
+          <StatsSection stats={stats} />
+        </div>
         <HowItWorksSection howItWorksData={howItWorksData} />
         <FeaturesSection features={features} />
         <ImageWithTextSection role={role} handleDriverClick={handleDriverClick} />

@@ -48,11 +48,6 @@ export const HeroSection = ({ role, handleDriverClick }: HeroSectionProps) => {
     setCurrentSlide((prev) => (prev - 1 + carouselSlides.length) % carouselSlides.length);
   };
 
-  const goToSlide = (index: number) => {
-    setDirection(index > currentSlide ? 1 : -1);
-    setCurrentSlide(index);
-  };
-
   const slideVariants = {
     enter: (direction: number) => ({
       x: direction > 0 ? '100%' : '-100%',
@@ -225,26 +220,6 @@ export const HeroSection = ({ role, handleDriverClick }: HeroSectionProps) => {
           <ChevronRight className="h-6 w-6 text-white group-hover:text-gray-900 transition-colors" />
         </div>
       </button>
-
-      {/* Dots Indicator - Modern Style */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-3 shadow-xl">
-        {carouselSlides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => goToSlide(index)}
-            className="group relative"
-            aria-label={`Go to slide ${index + 1}`}
-          >
-            <div
-              className={`transition-all duration-300 ${
-                index === currentSlide
-                  ? 'w-10 h-2 bg-gradient-to-r from-[#0862ca] to-[#d01622] rounded-full'
-                  : 'w-2 h-2 bg-white/40 group-hover:bg-white/70 rounded-full'
-              }`}
-            />
-          </button>
-        ))}
-      </div>
     </section>
   );
 };
