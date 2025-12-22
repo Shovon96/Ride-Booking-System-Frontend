@@ -57,10 +57,10 @@ const Navbar = () => {
   }
 
   return (
-    <section className="fixed top-0 left-0 w-full p-4 bg-gradient-to-r from-gray-100/90 to-gray-100/30 backdrop-blur-md border border-gray-500/20 shadow-lg z-50">
+    <section className="fixed top-0 left-0 w-full p-2 bg-gradient-to-r from-gray-100/90 to-gray-100/30 backdrop-blur-md border border-gray-500/20 shadow-lg z-50">
       <div className="">
         {/* Desktop Menu */}
-        <nav className="hidden md:hidden justify-between lg:flex w-full">
+        <nav className="hidden max-w-7xl mx-auto px-6 md:hidden justify-between items-center lg:flex w-full">
           <div className="flex items-center justify-between gap-6">
             {/* Logo */}
             <Logo />

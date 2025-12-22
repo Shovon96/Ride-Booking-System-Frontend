@@ -5,8 +5,8 @@ export default function Logo() {
         <div>
             <Link to="/">
                 <img
-                    className="h-8"
-                    src={"https://res.cloudinary.com/dpfdsilzj/image/upload/v1757193096/download_1_1_wj8mad.png"}
+                    className="h-18"
+                    src={"https://i.ibb.co.com/8D711zhX/cholo-Ride-main-logo.png"}
                     alt="Logo"
                 />
             </Link>
