@@ -74,7 +74,7 @@ const Navbar = () => {
           </div>
           {/* User menu */}
           {!data?.data?.email && <Link to={"/login"}>
-            <Button variant="default" className="cursor-pointer hover:bg-destructive">Login</Button>
+            <Button variant="default" className="cursor-pointer bg-gradient-to-r from-[#0862ca] to-[#d01622] hover:bg-gradient-to-br hover:from-[#d01622] hover:to-[#0862ca]">Login</Button>
           </Link>
           }
           {data?.data?.email &&

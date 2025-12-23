@@ -15,15 +15,15 @@ const carouselSlides = [
     title: 'Your Ride,',
     subtitle: 'Your Way',
     description: 'Experience premium transportation with verified drivers and real-time tracking.',
-    gradient: 'from-[#0862ca]/40 via-[#0862ca]/30 to-[#d01622]/40',
+    gradient: 'from-[#0862ca]/40 via-[#0862ca]/30 to-transparent',
   },
   {
     id: 2,
-    image: '/login.webp',
+    image: '/colo-ride-carousel-banner8743.png',
     title: 'Journey Begins',
     subtitle: 'With Us',
     description: 'Join thousands of happy riders. Fast, reliable, and secure rides anytime.',
-    gradient: 'from-[#d01622]/40 via-[#0862ca]/30 to-[#0862ca]/40',
+    gradient: 'from-[#d01622]/40 via-[#0862ca]/30 to-transparent',
   },
 ];
 
