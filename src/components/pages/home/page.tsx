@@ -68,6 +68,27 @@ const Home = () => {
       rating: 5,
       comment: "Safe and reliable rides give me peace of mind when I'm traveling with my kids. Highly recommend this service!",
       image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg"
+    },
+    {
+      name: "Michael Chen",
+      role: "Business Professional",
+      rating: 5,
+      comment: "The app is incredibly user-friendly and the drivers are always professional. Best ride service I've used!",
+      image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"
+    },
+    {
+      name: "Emily Johnson",
+      role: "Daily Commuter",
+      rating: 5,
+      comment: "I rely on this service every day for my commute. Always on time, always reliable. Couldn't ask for more!",
+      image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg"
+    },
+    {
+      name: "David Martinez",
+      role: "Night Shift Worker",
+      rating: 5,
+      comment: "Even late at night, I can always find a ride. The safety features make me feel secure during my late-night commutes.",
+      image: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg"
     }
   ];
 

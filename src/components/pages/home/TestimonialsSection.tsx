@@ -1,5 +1,5 @@
-import { motion, AnimatePresence } from 'framer-motion';
-import { Star, ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 
 interface Testimonial {
@@ -16,44 +16,25 @@ interface TestimonialsSectionProps {
 
 export const TestimonialsSection = ({ testimonials }: TestimonialsSectionProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const itemsPerPage = 3;
 
-  const nextTestimonial = () => {
-    setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  const nextSlide = () => {
+    setCurrentIndex((prev) =>
+      prev + itemsPerPage >= testimonials.length ? 0 : prev + itemsPerPage
+    );
   };
 
-  const prevTestimonial = () => {
-    setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  const prevSlide = () => {
+    setCurrentIndex((prev) =>
+      prev - itemsPerPage < 0 ? Math.max(0, testimonials.length - itemsPerPage) : prev - itemsPerPage
+    );
   };
 
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
-      opacity: 0,
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      zIndex: 0,
-      x: direction < 0 ? 300 : -300,
-      opacity: 0,
-    }),
-  };
+  const visibleTestimonials = testimonials.slice(currentIndex, currentIndex + itemsPerPage);
 
   return (
-    <section className="py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
-      {/* Background Decorations */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-0 w-96 h-96 bg-[#0862ca]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-0 w-96 h-96 bg-[#d01622]/5 rounded-full blur-3xl" />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="py-20 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
           <motion.div
@@ -92,104 +73,76 @@ export const TestimonialsSection = ({ testimonials }: TestimonialsSectionProps) 
         </div>
 
         {/* Carousel Container */}
-        <div className="relative max-w-4xl mx-auto">
-          {/* Navigation Buttons */}
+        <div className="relative">
+          {/* Left Navigation Button */}
           <button
-            onClick={prevTestimonial}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-16 z-10 group"
-            aria-label="Previous testimonial"
+            onClick={prevSlide}
+            disabled={currentIndex === 0}
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-12 z-10 group disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Previous testimonials"
           >
-            <div className="bg-white border-2 border-gray-200 hover:border-[#0862ca] p-4 rounded-2xl transition-all duration-300 group-hover:scale-110 shadow-lg hover:shadow-xl">
+            <div className="bg-white border-2 border-gray-200 hover:border-[#0862ca] p-4 rounded-2xl transition-all duration-300 group-hover:scale-110 shadow-lg hover:shadow-xl disabled:hover:scale-100">
               <ChevronLeft className="h-6 w-6 text-gray-600 group-hover:text-[#0862ca] transition-colors" />
             </div>
           </button>
 
+          {/* Right Navigation Button */}
           <button
-            onClick={nextTestimonial}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-16 z-10 group"
-            aria-label="Next testimonial"
+            onClick={nextSlide}
+            disabled={currentIndex + itemsPerPage >= testimonials.length}
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-12 z-10 group disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Next testimonials"
           >
-            <div className="bg-white border-2 border-gray-200 hover:border-[#0862ca] p-4 rounded-2xl transition-all duration-300 group-hover:scale-110 shadow-lg hover:shadow-xl">
+            <div className="bg-white border-2 border-gray-200 hover:border-[#0862ca] p-4 rounded-2xl transition-all duration-300 group-hover:scale-110 shadow-lg hover:shadow-xl disabled:hover:scale-100">
               <ChevronRight className="h-6 w-6 text-gray-600 group-hover:text-[#0862ca] transition-colors" />
             </div>
           </button>
 
-          {/* Testimonial Card */}
-          <div className="relative min-h-[400px] flex items-center justify-center">
-            <AnimatePresence initial={false} custom={direction} mode="wait">
+          {/* Testimonials Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {visibleTestimonials.map((testimonial, index) => (
               <motion.div
-                key={currentIndex}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{
-                  x: { type: 'spring', stiffness: 300, damping: 30 },
-                  opacity: { duration: 0.2 },
-                }}
-                className="w-full"
+                key={`${testimonial.name}-${currentIndex + index}`}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300"
               >
-                <div className="bg-white rounded-3xl p-8 lg:p-12 shadow-2xl border border-gray-100 relative">
-                  {/* Quote Icon */}
-                  <div className="absolute -top-6 left-8">
-                    <div className="w-12 h-12 bg-gradient-to-br from-[#0862ca] to-[#d01622] rounded-2xl flex items-center justify-center shadow-lg">
-                      <Quote className="h-6 w-6 text-white" />
-                    </div>
-                  </div>
-
-                  {/* Rating Stars */}
-                  <div className="flex items-center justify-center gap-1 mb-6 mt-4">
-                    {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                      <Star key={i} className="h-6 w-6 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-
-                  {/* Comment */}
-                  <p className="text-xl lg:text-2xl text-gray-700 text-center mb-8 leading-relaxed italic">
-                    "{testimonials[currentIndex].comment}"
-                  </p>
-
-                  {/* Author Info */}
-                  <div className="flex items-center justify-center gap-4">
-                    <div className="relative">
-                      <img
-                        src={testimonials[currentIndex].image}
-                        alt={testimonials[currentIndex].name}
-                        className="w-16 h-16 rounded-full object-cover border-4 border-white shadow-lg"
-                      />
-                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#0862ca] to-[#d01622] opacity-20" />
-                    </div>
-                    <div className="text-left">
-                      <div className="font-bold text-xl text-gray-900">
-                        {testimonials[currentIndex].name}
-                      </div>
-                      <div className="text-gray-600">{testimonials[currentIndex].role}</div>
-                    </div>
+                <div className="flex items-center mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                <p className="text-gray-700 mb-6 italic">"{testimonial.comment}"</p>
+                <div className="flex items-center">
+                  <img
+                    src={testimonial.image}
+                    alt={testimonial.name}
+                    className="w-10 h-10 rounded-full mr-4 object-cover"
+                  />
+                  <div>
+                    <div className="font-bold text-gray-900">{testimonial.name}</div>
+                    <div className="text-sm text-gray-600">{testimonial.role}</div>
                   </div>
                 </div>
               </motion.div>
-            </AnimatePresence>
+            ))}
           </div>
 
           {/* Dots Indicator */}
           <div className="flex justify-center gap-2 mt-8">
-            {testimonials.map((_, index) => (
+            {Array.from({ length: Math.ceil(testimonials.length / itemsPerPage) }).map((_, index) => (
               <button
                 key={index}
-                onClick={() => {
-                  setDirection(index > currentIndex ? 1 : -1);
-                  setCurrentIndex(index);
-                }}
+                onClick={() => setCurrentIndex(index * itemsPerPage)}
                 className="group"
-                aria-label={`Go to testimonial ${index + 1}`}
+                aria-label={`Go to page ${index + 1}`}
               >
                 <div
-                  className={`transition-all duration-300 rounded-full ${
-                    index === currentIndex
+                  className={`transition-all duration-300 rounded-full ${Math.floor(currentIndex / itemsPerPage) === index
                       ? 'w-10 h-3 bg-gradient-to-r from-[#0862ca] to-[#d01622]'
                       : 'w-3 h-3 bg-gray-300 group-hover:bg-gray-400'
-                  }`}
+                    }`}
                 />
               </button>
             ))}

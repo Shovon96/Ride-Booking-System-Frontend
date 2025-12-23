@@ -16,11 +16,11 @@ export const ImageWithTextSection = ({ role, handleDriverClick }: ImageWithTextS
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+    <section className="py-20  bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
       {/* Background Decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 left-0 w-96 h-96 bg-[#0862ca]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-0 w-96 h-96 bg-[#d01622]/5 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#0862ca]/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#d01622]/10 rounded-full blur-3xl" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -76,13 +76,13 @@ export const ImageWithTextSection = ({ role, handleDriverClick }: ImageWithTextS
           >
             {/* Badge */}
             <div>
-              <span className="inline-block px-4 py-2 bg-gradient-to-r from-[#0862ca]/10 to-[#d01622]/10 rounded-full text-sm font-semibold text-[#0862ca] mb-4">
+              <span className="inline-block px-4 py-2 bg-gradient-to-r from-[#0862ca] to-[#d01622] rounded-full text-sm font-semibold text-white mb-4">
                 Join Our Community
               </span>
             </div>
 
             {/* Title */}
-            <h2 className="text-4xl lg:text-5xl font-black text-gray-900 leading-tight">
+            <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight">
               {role ? (
                 <>
                   You Can Start The{' '}
@@ -114,7 +114,7 @@ export const ImageWithTextSection = ({ role, handleDriverClick }: ImageWithTextS
                   <div className="flex-shrink-0 w-6 h-6 bg-gradient-to-br from-[#0862ca] to-[#d01622] rounded-full flex items-center justify-center mt-1">
                     <CheckCircle2 className="h-4 w-4 text-white" />
                   </div>
-                  <span className="text-lg text-gray-700 leading-relaxed">{benefit}</span>
+                  <span className="text-lg text-gray-200 leading-relaxed">{benefit}</span>
                 </motion.li>
               ))}
             </ul>
@@ -133,7 +133,7 @@ export const ImageWithTextSection = ({ role, handleDriverClick }: ImageWithTextS
               >
                 <Users className="h-5 w-5" />
                 <span>{role ? role : 'Register Now'}</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#d01622] to-[#0862ca] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#d01622] to-[#0862ca] opacity-0 transition-opacity duration-300" />
               </Link>
 
               <div
