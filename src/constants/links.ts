@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import NotFoundPage from "@/components/pages/NotFound";
 import { UserStatsPage } from "@/components/pages/user/userStatsPage";
 import { lazy } from "react";
 
-const RequestRidePage = lazy( () => import( "@/components/pages/ride/requestRide/page" ) );
-const RideInfoPage = lazy( () => import( "@/components/pages/ride/rideInfo/page" ) );
-const CheckRideRequestPage = lazy( () => import( "@/components/pages/ride/checkRideRequest/page" ) );
-const CheckRideStatus = lazy( () => import( "@/components/pages/ride/rideHistory/page" ) );
-const VehicleInfoPage = lazy( () => import( "@/components/pages/user/stats/page" ) );
-const UserInfo = lazy( () => import( "@/components/pages/user/userInfo/page" ) );
-const UpdateUserPage = lazy( () => import( "@/components/pages/user/updateUser/page" ) );
-const ControlUserPage = lazy( () => import( "@/components/pages/user/manageAccessUser/page.tsx" ) ); 
-const SeeRidesPage = lazy( () => import( "@/components/pages/ride/rideHistory/page" ) );
+const RequestRidePage = lazy(() => import("@/components/pages/ride/requestRide/page"));
+const RideInfoPage = lazy(() => import("@/components/pages/ride/rideInfo/page"));
+const CheckRideRequestPage = lazy(() => import("@/components/pages/ride/checkRideRequest/page"));
+const CheckRideStatus = lazy(() => import("@/components/pages/ride/rideHistory/page"));
+const VehicleInfoPage = lazy(() => import("@/components/pages/user/stats/page"));
+const UserInfo = lazy(() => import("@/components/pages/user/userInfo/page"));
+const UpdateUserPage = lazy(() => import("@/components/pages/user/updateUser/page"));
+const ControlUserPage = lazy(() => import("@/components/pages/user/manageAccessUser/page.tsx"));
+const SeeRidesPage = lazy(() => import("@/components/pages/ride/rideHistory/page"));
 
 
 export const navItemLinks = {
@@ -24,21 +25,21 @@ export const navItemLinks = {
           title: "Take a Ride",
           description: "Request a new ride",
           url: "/ride/request-ride",
-          roles: [ "RIDER", "ADMIN" ],
+          roles: ["RIDER", "ADMIN"],
           Component: RequestRidePage
         },
         {
           title: "Ride History",
           description: "See your all ride history",
           url: "/ride/ride-info",
-          roles: [ "RIDER", "DRIVER", "ADMIN" ],
+          roles: ["RIDER", "DRIVER", "ADMIN"],
           Component: SeeRidesPage
         },
         {
           title: "Check Requested Ride",
           description: "Check your requested ride status",
           url: "/ride/check-ride-request",
-          roles: [ "DRIVER" ],
+          roles: ["DRIVER"],
           Component: CheckRideRequestPage
         },
       ],
@@ -52,24 +53,45 @@ export const navItemLinks = {
           title: "User Info",
           description: "Profile and settings",
           url: "/user/info",
-          roles: [ "RIDER", "ADMIN", "DRIVER" ],
+          roles: ["RIDER", "ADMIN", "DRIVER"],
           Component: UserInfo
-          
+
         },
         {
           title: "User Stats",
           description: "User stats and details for individuals",
           url: "/user/user-stats",
-          roles: [ "DRIVER" , "RIDER", "ADMIN"],
+          roles: ["DRIVER", "RIDER", "ADMIN"],
           Component: UserStatsPage
         },
         {
           title: "Control User",
           description: "Manage user access",
           url: "/user/manage-access",
-          roles: [ "ADMIN" ],
+          roles: ["ADMIN"],
           Component: ControlUserPage
         },
+      ],
+    },
+    {
+      title: "Vehicle Parts",
+      // url: "/ride",
+      roles: ["PUBLIC", "RIDER", "DRIVER", "ADMIN"],
+      items: [
+        {
+          title: "Car Parts",
+          description: "Explore various car parts",
+          url: "/car-parts",
+          roles: ["PUBLIC", "RIDER", "DRIVER", "ADMIN"],
+          Component: NotFoundPage
+        },
+        {
+          title: "Bike Parts",
+          description: "Explore various bike parts",
+          url: "/bike-parts",
+          roles: ["PUBLIC", "RIDER", "DRIVER", "ADMIN"],
+          Component: NotFoundPage
+        }
       ],
     },
     {
@@ -80,17 +102,17 @@ export const navItemLinks = {
     {
       title: "FAQ",
       url: "/faq",
-      roles: [ "PUBLIC", "RIDER", "DRIVER", "ADMIN" ],
+      roles: ["PUBLIC", "RIDER", "DRIVER", "ADMIN"],
     },
     {
       title: "Features",
       url: "/test-features",
-      roles: [ "PUBLIC", "RIDER", "DRIVER", "ADMIN" ],
+      roles: ["PUBLIC", "RIDER", "DRIVER", "ADMIN"],
     },
     {
       title: "Contact",
       url: "/wrong-contact-information",
-      roles: [ "PUBLIC", "RIDER", "DRIVER", "ADMIN" ],
+      roles: ["PUBLIC", "RIDER", "DRIVER", "ADMIN"],
     },
   ],
   auth: {

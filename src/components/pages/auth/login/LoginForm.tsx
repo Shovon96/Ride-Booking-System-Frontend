@@ -143,6 +143,15 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"form">)
                   </>
                 )}
               </Button>
+
+              {/* Google Login */}
+              <Button
+                type="button"
+                className="w-full h-12 bg-white border border-gray-300 hover:shadow-lg transition-all duration-300 rounded-xl font-bold text-base text-gray-700 flex items-center justify-center gap-3 cursor-pointer hover:bg-gray-100"
+              >
+                <img src="/google-icon.png" alt="Google Logo" className="h-5 w-5" />
+                Continue with Google
+              </Button>
             </div>
 
             {/* Register Link */}
