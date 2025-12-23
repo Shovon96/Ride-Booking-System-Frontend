@@ -4,6 +4,7 @@ import { Navbar } from './Nav';
 import { NavbarSkeleton } from '../skeletonLoading/NavbarSkeleton';
 import { useUserDataQuery } from '@/redux/features/api/auth.api';
 import { useEffect, useState } from "react";
+import FooterSkeleton from "../skeletonLoading/FooterSkeleton";
 
 
 export default function BaseLayout({ children }: IBaseLayout) {
@@ -28,7 +29,7 @@ export default function BaseLayout({ children }: IBaseLayout) {
                 {children}
             </div>
 
-            <Footer />
+            {navLoading || isLoading ? <FooterSkeleton /> : <Footer />}
         </div>
     );
 }

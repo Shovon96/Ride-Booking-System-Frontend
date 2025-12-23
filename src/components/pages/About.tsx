@@ -68,7 +68,7 @@ const AboutPage: React.FC = () => {
               }}
             />
             {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0862ca]/60 via-[#0862ca]/40 to-[#d01622]/60" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0862ca]/20 via-[#0862ca]/20 to-[#d01622]/20" />
 
             {/* Animated Shapes */}
             <div className="absolute inset-0 overflow-hidden">
@@ -108,12 +108,12 @@ const AboutPage: React.FC = () => {
                 {/* Badge */}
                 <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-4 py-2">
                   <Sparkles className="h-4 w-4 text-white" />
-                  <span className="text-sm font-medium text-white tracking-wide">About Us</span>
+                  <span className="text-sm font-medium text-[#0862ca] tracking-wide">About Us</span>
                 </div>
 
                 <h1 className="text-4xl lg:text-6xl font-black leading-tight text-white drop-shadow-2xl">
                   About{' '}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-orange-400 to-pink-500">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0862ca] via-[#0862ca] to-[#d01622]">
                     CHOLORIDE
                   </span>
                 </h1>

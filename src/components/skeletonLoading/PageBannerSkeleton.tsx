@@ -6,10 +6,11 @@ export const PageBannerSkeleton = () => {
       <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
         <div className="w-full lg:w-3/5 space-y-8">
 
+        {/* Badge Skeleton */}
+          <Skeleton className="h-8 w-24 rounded-full" />
           {/* Title Skeleton */}
           <div className="space-y-4">
-            <Skeleton className="h-16 w-full max-w-2xl" />
-            <Skeleton className="h-16 w-4/5 max-w-xl" />
+            <Skeleton className="h-14 w-full max-w-2xl" />
           </div>
 
           {/* Description Skeleton */}
