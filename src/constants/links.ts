@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import NotFoundPage from "@/components/pages/NotFound";
 import { UserStatsPage } from "@/components/pages/user/userStatsPage";
+import BikePartsProductPage from "@/components/pages/vehicles-product/bike-products/page";
+import CarPartsProductPage from "@/components/pages/vehicles-product/car-products/page";
 import { lazy } from "react";
 
 const RequestRidePage = lazy(() => import("@/components/pages/ride/requestRide/page"));
@@ -83,14 +84,14 @@ export const navItemLinks = {
           description: "Explore various car parts",
           url: "/car-parts",
           roles: ["PUBLIC", "RIDER", "DRIVER", "ADMIN"],
-          Component: NotFoundPage
+          Component: CarPartsProductPage
         },
         {
           title: "Bike Parts",
           description: "Explore various bike parts",
           url: "/bike-parts",
           roles: ["PUBLIC", "RIDER", "DRIVER", "ADMIN"],
-          Component: NotFoundPage
+          Component: BikePartsProductPage
         }
       ],
     },
