@@ -19,6 +19,8 @@ import { FeaturesSection } from './FeaturesSection';
 import { ImageWithTextSection } from './ImageWithTextSection';
 import { TestimonialsSection } from './TestimonialsSection';
 import { NewsletterSection } from './NewsletterSection';
+import { HeroSectionSkeleton } from './HeroSectionSkeleton';
+import { StatsSectionSkeleton } from './StatsSectionSkeleton';
 
 const Home = () => {
 
@@ -127,6 +129,16 @@ const Home = () => {
   const { data } = useUserDataQuery(undefined);
   const navigate = useNavigate();
   const { showToast } = useMyToast();
+  const [isHeroSectionLoading, setHeroSectionLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate initial navbar load
+    const timer = setTimeout(() => {
+      setHeroSectionLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const role = data?.data?.role || "";
 
@@ -180,17 +192,31 @@ const Home = () => {
         </MyModal>
       )}
       <div className="min-h-screen">
-        <div className='relative'>
-          <HeroSection role={role} handleDriverClick={handleDriverClick} />
-        </div>
-        <div className='absolute w-full -mt-10 z-19'>
-          <StatsSection stats={stats} />
-        </div>
-        <HowItWorksSection howItWorksData={howItWorksData} />
-        <FeaturesSection features={features} />
-        <ImageWithTextSection role={role} handleDriverClick={handleDriverClick} />
-        <TestimonialsSection testimonials={testimonials} />
-        <NewsletterSection />
+        {isHeroSectionLoading ? (
+          <>
+            <div className='relative'>
+              <HeroSectionSkeleton />
+            </div>
+            <div className='absolute w-full -mt-10 z-19'>
+              <StatsSectionSkeleton />
+            </div>
+            <div className="mt-40"></div>
+          </>
+        ) : (
+          <>
+            <div className='relative'>
+              <HeroSection role={role} handleDriverClick={handleDriverClick} />
+            </div>
+            <div className='absolute w-full -mt-10 z-19'>
+              <StatsSection stats={stats} />
+            </div>
+            <HowItWorksSection howItWorksData={howItWorksData} />
+            <FeaturesSection features={features} />
+            <ImageWithTextSection role={role} handleDriverClick={handleDriverClick} />
+            <TestimonialsSection testimonials={testimonials} />
+            <NewsletterSection />
+          </>
+        )}
       </div>
     </>
   );
