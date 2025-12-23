@@ -1,7 +1,7 @@
 import type { IBaseLayout } from "@/types/layout.types";
 import Footer from "./Footer";
 import { Navbar } from './Nav';
-import { NavbarSkeleton } from './NavbarSkeleton';
+import { NavbarSkeleton } from '../skeletonLoading/NavbarSkeleton';
 import { useUserDataQuery } from '@/redux/features/api/auth.api';
 import { useEffect, useState } from "react";
 

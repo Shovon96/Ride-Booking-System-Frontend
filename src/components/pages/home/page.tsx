@@ -19,8 +19,8 @@ import { FeaturesSection } from './FeaturesSection';
 import { ImageWithTextSection } from './ImageWithTextSection';
 import { TestimonialsSection } from './TestimonialsSection';
 import { NewsletterSection } from './NewsletterSection';
-import { HeroSectionSkeleton } from './HeroSectionSkeleton';
-import { StatsSectionSkeleton } from './StatsSectionSkeleton';
+import { HeroSectionSkeleton } from '../../skeletonLoading/HeroSectionSkeleton';
+import { StatsSectionSkeleton } from '../../skeletonLoading/StatsSectionSkeleton';
 
 const Home = () => {
 
