@@ -38,7 +38,7 @@ export default function CarProductDetailPage() {
           <h1 className="text-2xl font-bold text-gray-900 mb-4">
             Product Not Found
           </h1>
-          <Link to="/car-parts">
+          <Link to="/vehicles-product/car-products">
             <Button>Back to Products</Button>
           </Link>
         </div>
@@ -49,7 +49,7 @@ export default function CarProductDetailPage() {
   return (
     <ProductDetail
       product={data.data}
-      backPath="/car-parts"
+      backPath="/vehicles-product/car-products"
       backLabel="Back to Car Parts"
     />
   );

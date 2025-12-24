@@ -2,5 +2,6 @@ export enum UserRole
 {
     DRIVER = "DRIVER",
     RIDER = "RIDER",
-    ADMIN = "ADMIN"
+    ADMIN = "ADMIN",
+    PUBLIC = "PUBLIC"
 }

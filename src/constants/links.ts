@@ -82,14 +82,14 @@ export const navItemLinks = {
         {
           title: "Car Parts",
           description: "Explore various car parts",
-          url: "/car-parts",
+          url: "/vehicles-product/car-products",
           roles: ["PUBLIC", "RIDER", "DRIVER", "ADMIN"],
           Component: CarPartsProductPage
         },
         {
           title: "Bike Parts",
           description: "Explore various bike parts",
-          url: "/bike-parts",
+          url: "/vehicles-product/bike-products",
           roles: ["PUBLIC", "RIDER", "DRIVER", "ADMIN"],
           Component: BikePartsProductPage
         }
