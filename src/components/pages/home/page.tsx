@@ -19,6 +19,7 @@ import { FeaturesSection } from './FeaturesSection';
 import { ImageWithTextSection } from './ImageWithTextSection';
 import { TestimonialsSection } from './TestimonialsSection';
 import { NewsletterSection } from './NewsletterSection';
+import { ProductsSection } from './ProductsSection';
 import { HeroSectionSkeleton } from '../../skeletonLoading/HeroSectionSkeleton';
 import { StatsSectionSkeleton } from '../../skeletonLoading/StatsSectionSkeleton';
 
@@ -211,6 +212,7 @@ const Home = () => {
               <StatsSection stats={stats} />
             </div>
             <HowItWorksSection howItWorksData={howItWorksData} />
+            <ProductsSection />
             <FeaturesSection features={features} />
             <ImageWithTextSection role={role} handleDriverClick={handleDriverClick} />
             <TestimonialsSection testimonials={testimonials} />
