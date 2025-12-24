@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMyToast } from "@/components/layouts/MyToast";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { useLoginMutation } from "@/redux/features/api/auth.api";
 import { loginSchema } from "@/validations/auth.validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, type FieldValue, type SubmitHandler } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import z from "zod";
 import { Mail, Lock, ArrowRight } from "lucide-react";
@@ -29,11 +28,33 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"form">)
     },
   });
 
-  const [loginUser, { isLoading, error }] = useLoginMutation();
+  const [loginUser, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
   const { showToast } = useMyToast();
 
-  const onSubmit: SubmitHandler<FieldValue> = async (data: z.infer<typeof loginSchema>) => {
+  // Demo credentials
+  const demoCredentials = {
+    rider: {
+      email: "shovon@rider.com",
+      password: "Shovon@22",
+    },
+    driver: {
+      email: "shovon@driver.com",
+      password: "Shovon@22",
+    },
+    admin: {
+      email: "shovon@admin.com",
+      password: "Shovon@22",
+    },
+  };
+
+  // Function to fill demo credentials
+  const fillDemoCredentials = (role: "rider" | "driver" | "admin") => {
+    form.setValue("email", demoCredentials[role].email);
+    form.setValue("password", demoCredentials[role].password);
+  };
+
+  const onSubmit: SubmitHandler<z.infer<typeof loginSchema>> = async (data: z.infer<typeof loginSchema>) => {
     try {
       const result = await loginUser(data).unwrap();
 
@@ -43,17 +64,17 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"form">)
       });
 
       navigate("/");
-    } catch (error) {
+    } catch (err: any) {
       showToast({
-        message: error?.data?.message,
+        message: err?.data?.message || "Login failed",
         type: "error",
       });
 
-      if (error?.data?.flag) {
-        navigate(`/account-status-page/${error?.data?.userId}`, { state: error?.data?.flag });
+      if (err?.data?.flag) {
+        navigate(`/account-status-page/${err?.data?.userId}`, { state: err?.data?.flag });
       }
 
-      console.log(error?.data?.userId);
+      console.log(err?.data?.userId);
     }
   };
 
@@ -128,6 +149,32 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"form">)
                   </FormItem>
                 )}
               />
+
+              {/* Login with */}
+              <div className="flex items-center justify-start gap-2">
+                <span className="text-sm">Login With: </span>
+                <button 
+                  type="button" 
+                  onClick={() => fillDemoCredentials("rider")}
+                  className="text-purple-600 hover:text-purple-700 hover:bg-purple-50 text-sm cursor-pointer px-3 py-1 border border-purple-300 rounded-lg transition-all duration-200 font-medium"
+                >
+                  Rider
+                </button>
+                <button 
+                  type="button" 
+                  onClick={() => fillDemoCredentials("driver")}
+                  className="text-green-600 hover:text-green-700 hover:bg-green-50 text-sm cursor-pointer px-3 py-1 border border-green-300 rounded-lg transition-all duration-200 font-medium"
+                >
+                  Driver
+                </button>
+                <button 
+                  type="button" 
+                  onClick={() => fillDemoCredentials("admin")}
+                  className="text-blue-600 hover:text-blue-700 hover:bg-blue-50 text-sm cursor-pointer px-3 py-1 border border-blue-300 rounded-lg transition-all duration-200 font-medium"
+                >
+                  Admin
+                </button>
+              </div>
 
               <Button
                 type="submit"

@@ -13,7 +13,7 @@ export default function LoginPage() {
       </div>
 
       {/* Left Side - Form */}
-      <div className="flex flex-col gap-6 p-4 md:p-6 relative z-10">
+      <div className="flex flex-col gap-6 p-4 md:p-6 md:pb-12 relative z-10">
         {/* Logo */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -37,37 +37,6 @@ export default function LoginPage() {
             <LoginForm />
           </motion.div>
         </div>
-
-        {/* Demo Credentials */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="bg-gradient-to-br from-white to-gray-50 shadow-xl rounded-2xl p-6 border border-gray-200 w-full max-w-md mx-auto"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <div className="w-2 h-2 bg-gradient-to-r from-[#0862ca] to-[#d01622] rounded-full animate-pulse" />
-            <h3 className="font-bold text-gray-900">Demo Credentials</h3>
-          </div>
-          <div className="space-y-3 text-sm">
-            <div className="flex justify-between items-center p-2 bg-blue-50 rounded-lg">
-              <span className="font-medium text-gray-700">Admin:</span>
-              <span className="text-[#0862ca] font-mono">shovon@admin.com</span>
-            </div>
-            <div className="flex justify-between items-center p-2 bg-green-50 rounded-lg">
-              <span className="font-medium text-gray-700">Driver:</span>
-              <span className="text-green-600 font-mono">shovon@driver.com</span>
-            </div>
-            <div className="flex justify-between items-center p-2 bg-purple-50 rounded-lg">
-              <span className="font-medium text-gray-700">Rider:</span>
-              <span className="text-purple-600 font-mono">shovon@rider.com</span>
-            </div>
-            <div className="flex justify-between items-center p-2 bg-gray-100 rounded-lg mt-4">
-              <span className="font-medium text-gray-700">All Password:</span>
-              <span className="text-gray-900 font-mono">Shovon@22</span>
-            </div>
-          </div>
-        </motion.div>
       </div>
 
       {/* Right Side - Image */}
