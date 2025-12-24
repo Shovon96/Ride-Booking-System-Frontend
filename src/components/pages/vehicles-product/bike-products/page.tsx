@@ -157,7 +157,7 @@ const bikeProducts = [
 
 // Product Card Skeleton
 const ProductCardSkeleton = () => (
-  <Card className="h-full overflow-hidden">
+  <Card className="h-full overflow-hidden p-0">
     <CardHeader className="p-0">
       <Skeleton className="h-48 w-full rounded-t-xl" />
     </CardHeader>
@@ -204,7 +204,7 @@ export default function BikePartsProductPage() {
             backgroundImage: "url('https://images.pexels.com/photos/2116475/pexels-photo-2116475.jpeg')",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#d01622]/80 via-[#d01622]/60 to-[#0862ca]/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#d01622]/20 via-[#d01622]/20 to-[#0862ca]/60" />
 
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
@@ -235,7 +235,7 @@ export default function BikePartsProductPage() {
 
             <h1 className="text-4xl lg:text-5xl font-black leading-tight text-white drop-shadow-2xl">
               Premium{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-orange-400 to-pink-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d01622] via-orange-300 to-[#0862ca]">
                 Bike Parts
               </span>
             </h1>
@@ -290,7 +290,7 @@ export default function BikePartsProductPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: index * 0.05 }}
                 >
-                  <Card className="h-full overflow-hidden hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-[#d01622]/50 group">
+                  <Card className="h-full overflow-hidden p-0 hover:shadow-2xl transition-all duration-300 border-2 border-gray-100 hover:border-[#d01622]/50 group">
                     <CardHeader className="p-0 relative">
                       <img
                         src={product.image}
@@ -343,16 +343,16 @@ export default function BikePartsProductPage() {
                     </CardContent>
 
                     <CardFooter className="p-4 pt-0 flex gap-2">
-                      <Link to={`/vehicles-product/bike-products/${product.id}`} className="flex-1">
+                      <Link to={`/vehicles-product/bike-products/${product?.id}`} className="flex-1">
                         <Button
                           variant="outline"
-                          className="w-full gap-2 hover:bg-[#d01622]/10 hover:border-[#d01622] hover:text-[#d01622]"
+                          className="w-full gap-2 cursor-pointer hover:bg-[#d01622]/10 hover:border-[#d01622] hover:text-[#d01622]"
                         >
                           <Eye className="h-4 w-4" />
                           Details
                         </Button>
                       </Link>
-                      <Button className="gap-2 bg-gradient-to-r from-[#d01622] to-[#0862ca] hover:shadow-lg">
+                      <Button className="gap-2 cursor-pointer bg-gradient-to-r from-[#d01622] to-[#0862ca] hover:scale-105 transition-transform duration-300 text-white">
                         <ShoppingCart className="h-4 w-4" />
                         Buy
                       </Button>

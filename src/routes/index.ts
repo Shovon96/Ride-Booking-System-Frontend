@@ -7,6 +7,8 @@ import FAQPage from "@/components/pages/FaqPage";
 import FeaturesPage from "@/components/pages/FeaturesPage";
 import NotFoundPage from "@/components/pages/NotFound";
 import UnAuthPage from "@/components/pages/UnAuthPage";
+import BikeProductDetailPage from "@/components/pages/vehicles-product/bike-products/bike-product-details/page";
+import CarProductDetailPage from "@/components/pages/vehicles-product/car-products/car-product-details/page";
 import { navItemLinks } from "@/constants/links";
 import { UserRole } from "@/constants/userRole";
 import { generateRoutes } from "@/utils/generateRoutes";
@@ -34,6 +36,14 @@ export const appRouter = createBrowserRouter( [
       {
         path: "/ride/ride-info/:id",
         Component: withAuth(RideInfoPage, [UserRole.DRIVER, UserRole.ADMIN, UserRole.RIDER]),
+      },
+      {
+        path: '/vehicles-product/car-products/:id',
+        Component: CarProductDetailPage
+      },
+      {
+        path: '/vehicles-product/bike-products/:id',
+        Component: BikeProductDetailPage
       },
       {
         path: '/about',
