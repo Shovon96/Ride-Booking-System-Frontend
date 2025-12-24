@@ -1,122 +1,60 @@
 import { motion } from 'framer-motion';
 import { ArrowLeft, ShoppingCart, Star, Check, Package, Shield, Truck, Heart } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { Link, useParams } from 'react-router';
+import { useState } from 'react';
+import { Link } from 'react-router';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Skeleton } from '@/components/ui/skeleton';
 import { Separator } from '@/components/ui/separator';
 
-// Demo Data (same as list page)
-const bikeProducts = [
+interface ProductDetailProps {
+  product: {
+    _id: string;
+    title: string;
+    images: string[];
+    description: string;
+    price: number;
+    rating?: number;
+    reviews?: number;
+    status: string;
+    type: string;
+    brand: string;
+    category: string;
+    sku: string;
+    warranty: string;
+    specifications: Record<string, string>;
+    features: string[];
+  };
+  backPath: string;
+  backLabel: string;
+}
+
+const reviews = [
   {
-    id: 1,
-    title: 'Racing Motorcycle Helmet',
-    images: [
-      'https://images.pexels.com/photos/1413412/pexels-photo-1413412.jpeg',
-      'https://images.pexels.com/photos/2116475/pexels-photo-2116475.jpeg',
-      'https://images.pexels.com/photos/1413412/pexels-photo-1413412.jpeg',
-    ],
-    description: 'DOT certified full-face racing helmet featuring advanced aerodynamic design and anti-fog visor technology. This premium helmet combines safety with comfort, featuring a lightweight composite shell, multi-density EPS liner, and advanced ventilation system. The anti-fog visor provides crystal-clear visibility in all conditions, while the moisture-wicking interior keeps you comfortable during long rides.',
-    price: 149.99,
-    rating: 4.9,
-    reviews: 234,
-    status: 'In Stock',
-    type: 'Safety Gear',
-    brand: 'SafeRide',
-    sku: 'SR-HLM-001',
-    warranty: '3 Years',
-    specifications: {
-      'Certification': 'DOT, ECE 22.05',
-      'Shell Material': 'Composite Fiber',
-      'Weight': '1450g',
-      'Sizes Available': 'XS, S, M, L, XL, XXL',
-      'Visor': 'Anti-Fog, UV Protection',
-      'Ventilation': 'Multi-Port System'
-    },
-    features: [
-      'DOT and ECE certified for maximum safety',
-      'Aerodynamic shell design reduces wind noise',
-      'Anti-fog visor with UV protection',
-      'Advanced ventilation system',
-      'Moisture-wicking, removable interior',
-      'Quick-release visor mechanism',
-      'Emergency quick-release cheek pads'
-    ],
-    reviews_data: [
-      {
-        name: 'Alex Turner',
-        rating: 5,
-        date: '2024-01-20',
-        comment: 'Best helmet I\'ve owned! Comfortable, quiet, and the anti-fog visor works perfectly. Highly recommend!'
-      },
-      {
-        name: 'Maria Garcia',
-        rating: 5,
-        date: '2024-01-18',
-        comment: 'Excellent quality and fit. The ventilation is great and it looks amazing. Worth every penny.'
-      },
-      {
-        name: 'James Wilson',
-        rating: 4,
-        date: '2024-01-15',
-        comment: 'Great helmet overall. Very comfortable for long rides. Only minor issue is it runs slightly small.'
-      }
-    ]
+    name: 'John Smith',
+    rating: 5,
+    date: '2024-01-15',
+    comment: 'Excellent brake pads! Noticed immediate improvement in braking performance. Very quiet and minimal dust.'
   },
-  // Add more products as needed
-];
+  {
+    name: 'Sarah Johnson',
+    rating: 5,
+    date: '2024-01-10',
+    comment: 'Best brake pads I\'ve used. Great stopping power and my wheels stay much cleaner now.'
+  },
+  {
+    name: 'Mike Davis',
+    rating: 4,
+    date: '2024-01-05',
+    comment: 'Good quality pads. Installation was straightforward. Slight improvement over OEM pads.'
+  }
+]
 
-const DetailPageSkeleton = () => (
-  <div className="min-h-screen bg-white">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <Skeleton className="h-10 w-32 mb-8" />
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <Skeleton className="h-96 w-full rounded-xl" />
-        <div className="space-y-6">
-          <Skeleton className="h-10 w-3/4" />
-          <Skeleton className="h-6 w-1/2" />
-          <Skeleton className="h-32 w-full" />
-          <Skeleton className="h-12 w-full" />
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-export default function BikeProductDetailPage() {
-  const { id } = useParams();
-  const [isLoading, setIsLoading] = useState(true);
+export const ProductDetail = ({ product, backPath, backLabel }: ProductDetailProps) => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Find product by ID
-  const product = bikeProducts.find(p => p.id === parseInt(id || '1'));
-
-  if (isLoading) {
-    return <DetailPageSkeleton />;
-  }
-
-  if (!product) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Product Not Found</h1>
-          <Link to="/vehicles-product/bike-products">
-            <Button>Back to Products</Button>
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  const brandColor = product.category === 'CAR' ? '#0862ca' : '#d01622';
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
@@ -124,11 +62,12 @@ export default function BikeProductDetailPage() {
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <Link
-            to="/vehicles-product/bike-products"
-            className="inline-flex items-center gap-2 text-[#d01622] hover:text-[#0862ca] transition-colors font-semibold"
+            to={backPath}
+            className="inline-flex items-center gap-2 font-semibold transition-colors hover:text-[var(--brand-color)]"
+            style={{ color: brandColor }}
           >
             <ArrowLeft className="h-4 w-4" />
-            Back to Bike Parts
+            {backLabel}
           </Link>
         </div>
       </div>
@@ -159,11 +98,11 @@ export default function BikeProductDetailPage() {
                     <button
                       key={index}
                       onClick={() => setSelectedImage(index)}
-                      className={`aspect-square rounded-xl overflow-hidden border-2 transition-all ${
-                        selectedImage === index
-                          ? 'border-[#d01622] ring-2 ring-[#d01622]/20'
-                          : 'border-gray-200 hover:border-gray-300'
-                      }`}
+                      className={`aspect-square rounded-xl overflow-hidden border-2 transition-all ${selectedImage === index
+                        ? 'ring-2 ring-[var(--brand-color)]/20'
+                        : 'border-gray-200 hover:border-gray-300'
+                        }`}
+                      style={{ borderColor: selectedImage === index ? brandColor : undefined }}
                     >
                       <img
                         src={image}
@@ -184,7 +123,9 @@ export default function BikeProductDetailPage() {
               className="space-y-6"
             >
               <div>
-                <Badge className="mb-3 bg-[#d01622]">{product.type}</Badge>
+                <Badge className="mb-3" style={{ backgroundColor: brandColor }}>
+                  {product.type}
+                </Badge>
                 <h1 className="text-4xl font-black text-gray-900 mb-2">
                   {product.title}
                 </h1>
@@ -192,30 +133,31 @@ export default function BikeProductDetailPage() {
               </div>
 
               {/* Rating */}
+              {/* {product.rating && product.reviews && ( */}
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
-                      className={`h-5 w-5 ${
-                        i < Math.floor(product.rating)
-                          ? 'text-yellow-400 fill-current'
-                          : 'text-gray-300'
-                      }`}
+                      className={`h-5 w-5 ${i < Math.floor(4.8)
+                        ? 'text-yellow-400 fill-current'
+                        : 'text-gray-300'
+                        }`}
                     />
                   ))}
                 </div>
                 <span className="text-lg font-semibold text-gray-900">
-                  {product.rating}
+                  4.8
                 </span>
-                <span className="text-gray-600">({product.reviews} reviews)</span>
+                <span className="text-gray-600">(6 reviews)</span>
               </div>
+              {/* )} */}
 
               <Separator />
 
               {/* Price */}
               <div className="flex items-baseline gap-3">
-                <span className="text-5xl font-black text-[#d01622]">
+                <span className="text-5xl font-black" style={{ color: brandColor }}>
                   ${product.price}
                 </span>
                 <span className="text-gray-600">per unit</span>
@@ -224,14 +166,14 @@ export default function BikeProductDetailPage() {
               {/* Key Info */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                  <Package className="h-5 w-5 text-[#d01622]" />
+                  <Package className="h-5 w-5" style={{ color: brandColor }} />
                   <div>
                     <p className="text-xs text-gray-600">SKU</p>
                     <p className="font-semibold text-gray-900">{product.sku}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl">
-                  <Shield className="h-5 w-5 text-[#d01622]" />
+                  <Shield className="h-5 w-5" style={{ color: brandColor }} />
                   <div>
                     <p className="text-xs text-gray-600">Warranty</p>
                     <p className="font-semibold text-gray-900">{product.warranty}</p>
@@ -265,7 +207,12 @@ export default function BikeProductDetailPage() {
               <div className="flex gap-4">
                 <Button
                   size="lg"
-                  className="flex-1 gap-2 bg-gradient-to-r from-[#d01622] to-[#0862ca] hover:shadow-xl text-lg font-bold py-6"
+                  className="flex-1 gap-2 hover:shadow-xl text-lg font-bold py-6 cursor-pointer"
+                  style={{
+                    backgroundImage: product.category === 'CAR'
+                      ? 'linear-gradient(to right, #0862ca, #d01622)'
+                      : 'linear-gradient(to right, #d01622, #0862ca)'
+                  }}
                 >
                   <ShoppingCart className="h-5 w-5" />
                   Add to Cart
@@ -345,7 +292,7 @@ export default function BikeProductDetailPage() {
                 <CardTitle className="text-2xl font-black">Customer Reviews</CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                {product.reviews_data.map((review, index) => (
+                {reviews?.map((review, index) => (
                   <div key={index} className="border-b last:border-0 pb-6 last:pb-0">
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
@@ -354,11 +301,10 @@ export default function BikeProductDetailPage() {
                           {Array.from({ length: 5 }).map((_, i) => (
                             <Star
                               key={i}
-                              className={`h-4 w-4 ${
-                                i < review.rating
-                                  ? 'text-yellow-400 fill-current'
-                                  : 'text-gray-300'
-                              }`}
+                              className={`h-4 w-4 ${i < review.rating
+                                ? 'text-yellow-400 fill-current'
+                                : 'text-gray-300'
+                                }`}
                             />
                           ))}
                         </div>
@@ -375,4 +321,4 @@ export default function BikeProductDetailPage() {
       </section>
     </div>
   );
-}
+};

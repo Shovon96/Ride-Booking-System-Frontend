@@ -10,7 +10,7 @@ export const baseApi = createApi( {
     //     return headers;
     // },
     credentials: 'includes',
-    tagTypes: [ "USER", "DRIVER", "RIDES", "RIDER", "RIDE" ],
+    tagTypes: [ "USER", "DRIVER", "RIDES", "RIDER", "RIDE", "VEHICLE_PRODUCTS", "VEHICLE_PRODUCT" ],
     endpoints: () =>
     ( {
         
