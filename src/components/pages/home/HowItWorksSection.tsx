@@ -15,7 +15,7 @@ interface HowItWorksSectionProps {
 
 export const HowItWorksSection = ({ howItWorksData }: HowItWorksSectionProps) => {
   return (
-    <section className="py-16 mt-40 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+    <section className="py-20 mt-52">
       {/* Background Decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-[#0862ca]/5 rounded-full blur-3xl" />

@@ -77,7 +77,7 @@ export const TestimonialsSection = ({ testimonials }: TestimonialsSectionProps) 
           {/* Left Navigation Button */}
           <button
             onClick={prevSlide}
-            disabled={currentIndex === 0}
+            // disabled={currentIndex === 0}
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-12 z-10 group disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Previous testimonials"
           >
@@ -89,7 +89,7 @@ export const TestimonialsSection = ({ testimonials }: TestimonialsSectionProps) 
           {/* Right Navigation Button */}
           <button
             onClick={nextSlide}
-            disabled={currentIndex + itemsPerPage >= testimonials.length}
+            // disabled={currentIndex + itemsPerPage >= testimonials.length}
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-12 z-10 group disabled:opacity-50 disabled:cursor-not-allowed"
             aria-label="Next testimonials"
           >

@@ -13,7 +13,7 @@ interface FeaturesSectionProps {
 
 export const FeaturesSection = ({ features }: FeaturesSectionProps) => {
   return (
-    <section className="pb-20 bg-white relative overflow-hidden">
+    <section className="py-20 bg-white relative overflow-hidden">
       {/* Background Decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 right-0 w-96 h-96 bg-[#0862ca]/5 rounded-full blur-3xl" />
