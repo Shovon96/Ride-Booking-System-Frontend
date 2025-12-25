@@ -31,9 +31,9 @@ export default function SeeRidesPage() {
     limit: itemsPerPage,
     search: searchTerm || undefined,
     status: filterStatus !== "ALL" ? filterStatus : undefined,
-  } );
-  
-    // console.log(userRidesData)
+  });
+
+  // console.log(userRidesData)
 
   const ridesToShow =
     role === "ADMIN" && tab === "all"
@@ -45,7 +45,7 @@ export default function SeeRidesPage() {
       ? allRidesData?.data?.meta
       : userRidesData?.data?.meta;
 
-  
+
   useEffect(() => {
     const debounce = setTimeout(() => {
       setCurrentPage(1);
@@ -55,14 +55,21 @@ export default function SeeRidesPage() {
 
   const handleTabChange = (value: "my" | "all") => {
     setTab(value);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const isLoading = userDataLoading || userRidesLoading || allRidesLoading;
 
   return (
-    <div className="container mx-auto p-4 py-30 space-y-6">
-      <h1 className="text-3xl font-bold text-gray-900">Your Ride History</h1>
+    <div className="max-w-7xl mx-auto px-6 py-20 space-y-6">
+      <div className="flex flex-col justify-center items-center pb-12">
+        <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4">
+          Your Rides <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0862ca] to-[#d01622]">History</span>
+        </h2>
+        <p className="text-md md:text-lg text-center text-gray-600 max-w-2xl mx-auto">
+          Review your ride history and manage your bookings with ease.
+        </p>
+      </div>
 
       {/* (Admin Only) */}
       {role === "ADMIN" && <TabsComponent tab={tab} handleTabChange={handleTabChange} />}
@@ -91,7 +98,7 @@ export default function SeeRidesPage() {
       </div>
 
       {isLoading && (
-        <Loading/>
+        <Loading />
       )}
 
       {/* Rides List */}

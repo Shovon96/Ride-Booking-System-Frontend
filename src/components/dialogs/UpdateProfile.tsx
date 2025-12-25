@@ -118,7 +118,7 @@ export default function UpdateProfileModal({ user }: IUserModalProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="bg-yellow-600 hover:bg-orange-700 text-white">Edit Profile</Button>
+        <Button className=" bg-gradient-to-r from-[#0862ca] to-[#d01622] hover:shadow-lg cursor-pointer text-white">Edit Profile</Button>
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-lg">

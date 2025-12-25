@@ -11,6 +11,21 @@ import { useEditUserByIdMutation } from "@/redux/features/api/admin.api";
 import { useForm } from "react-hook-form";
 import { useMyToast } from "@/components/layouts/MyToast";
 import { useAppDispatch } from "@/redux/hooks";
+import { motion } from "framer-motion";
+import { 
+  User, 
+  Mail, 
+  Shield, 
+  MapPin, 
+  Calendar, 
+  Clock, 
+  Car,
+  CheckCircle,
+  XCircle,
+  RefreshCw
+} from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 
 export default function UserInfo() {
@@ -71,182 +86,275 @@ export default function UserInfo() {
 
   if (!data || !data.data) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-30">
-        <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading user data...</p>
-        </div>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center py-20">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md text-center"
+        >
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-[#0862ca] border-t-transparent mx-auto"></div>
+          <p className="mt-6 text-gray-600 font-medium">Loading your profile...</p>
+        </motion.div>
       </div>
     );
   }
 
   const user = data.data;
 
+  const getRoleBadgeColor = (role: string) => {
+    switch (role) {
+      case UserRole.ADMIN:
+        return 'bg-purple-100 text-purple-700 border-purple-200';
+      case UserRole.DRIVER:
+        return 'bg-blue-100 text-blue-700 border-blue-200';
+      case UserRole.RIDER:
+        return 'bg-green-100 text-green-700 border-green-200';
+      default:
+        return 'bg-gray-100 text-gray-700 border-gray-200';
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 px-4 sm:px-6 lg:px-8 py-30">
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
-          {/* Header Section */}
-          <div className="bg-gradient-to-r from-blue-500 to-indigo-600 p-6 text-white">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
-              <div>
-                <h1 className="text-2xl font-bold">User Profile</h1>
-                <p className="text-blue-100 mt-1">Manage your account information</p>
-              </div>
-              <div>
-                <UpdateProfileModal user={user} />
-              </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-red-50/30 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl px-6 mx-auto">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8"
+        >
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div>
+              <h1 className="text-4xl font-black text-gray-900">
+                My{' '}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0862ca] to-[#d01622]">
+                  Profile
+                </span>
+              </h1>
+              <p className="text-gray-600 mt-2">Manage your account information and settings</p>
             </div>
+            <UpdateProfileModal user={user} />
           </div>
+        </motion.div>
 
-          {/* Profile Content */}
-          <div className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Basic Information */}
-              <div className="bg-gray-50 p-5 rounded-xl">
-                <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                  </svg>
-                  Basic Information
-                </h2>
-
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Full Name</label>
-                    <p className="text-gray-800">{user.name}</p>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Email Address</label>
-                    <p className="text-gray-800">{user.email}</p>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Username</label>
-                    <p className="text-gray-800">{user.username}</p>
-                  </div>
-
-                  <div className="flex flex-col gap-3">
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Role</label>
-                    <Badge className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
-                      {user.role}
-                    </Badge>
-                    {
-                      user?.role === UserRole.DRIVER && (
-                        <div className="p-4 border rounded-lg shadow-sm bg-white space-y-2">
-                          <h3 className="text-lg font-semibold text-rose-500">Vehicle Information</h3>
-                          <div className="grid grid-cols-1 gap-4">
-                            <div>
-                              <span className="font-medium ">License:</span> {user?.driver?.vehicleInfo?.license || "N/A"}
-                            </div>
-                            <div>
-                              <span className="font-medium">Model:</span> {user?.driver?.vehicleInfo?.model || "N/A"}
-                            </div>
-                            <div>
-                              <span className="font-medium">Plate Number:</span> {user?.driver?.vehicleInfo?.plateNumber || "N/A"}
-                            </div>
-                          </div>
-                        </div>
-                      )
-                    }
-                    {
-                      user?.role === UserRole.DRIVER && (
-                        <VehicleEditModal userId={user?.driver?._id} vehicleData={user?.driver?.vehicleInfo} />
-                      )
-                    }
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Column - Profile Card */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.1 }}
+            className="lg:col-span-1"
+          >
+            <Card className="overflow-hidden border-2 p-0">
+              <div className="h-32 bg-gradient-to-r from-[#0862ca] to-[#d01622] relative">
+                <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2">
+                  <div className="w-32 h-32 rounded-full bg-white p-2 shadow-xl">
+                    <div className="w-full h-full rounded-full bg-gradient-to-br from-[#0862ca] to-[#d01622] flex items-center justify-center">
+                      <User className="h-16 w-16 text-white" />
+                    </div>
                   </div>
                 </div>
               </div>
+              
+              <CardContent className="pt-20 text-center">
+                <h2 className="text-2xl font-black text-gray-900">{user.name}</h2>
+                <p className="text-gray-600 mt-1">@{user.username}</p>
+                
+                <div className="flex justify-center mt-4">
+                  <Badge className={`${getRoleBadgeColor(user.role)} border font-semibold px-4 py-1`}>
+                    {user.role}
+                  </Badge>
+                </div>
 
-              {/* Status Information */}
-              <div className="bg-gray-50 p-5 rounded-xl">
-                <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.2 6.5 10.266a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clipRule="evenodd" />
-                  </svg>
-                  Status Information
-                </h2>
+                <Separator className="my-6" />
 
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Account Status</label>
-                    <div className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${user.isBlocked ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}`}>
-                      {user.isBlocked ? 'Blocked' : 'Active'}
+                {/* Status Indicators */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <span className="text-sm font-medium text-gray-700">Account Status</span>
+                    <div className="flex items-center gap-2">
+                      {user.isBlocked ? (
+                        <>
+                          <XCircle className="h-4 w-4 text-red-500" />
+                          <span className="text-sm font-semibold text-red-600">Blocked</span>
+                        </>
+                      ) : (
+                        <>
+                          <CheckCircle className="h-4 w-4 text-green-500" />
+                          <span className="text-sm font-semibold text-green-600">Active</span>
+                        </>
+                      )}
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Online Status</label>
-                    <div className="flex items-center">
-                      <div className={`h-3 w-3 rounded-full mr-2 ${user.isOnline ? 'bg-green-500' : 'bg-gray-400'}`}></div>
-                      <span className={user.isOnline ? "text-green-600 font-medium" : "text-gray-600"}>
-                        {user.isOnline ? "Online" : "Offline"}
+                  <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                    <span className="text-sm font-medium text-gray-700">Online Status</span>
+                    <div className="flex items-center gap-2">
+                      <div className={`h-3 w-3 rounded-full ${user.isOnline ? 'bg-green-500 animate-pulse' : 'bg-gray-400'}`}></div>
+                      <span className={`text-sm font-semibold ${user.isOnline ? 'text-green-600' : 'text-gray-600'}`}>
+                        {user.isOnline ? 'Online' : 'Offline'}
                       </span>
                     </div>
                   </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Last Online</label>
-                    <p className="text-gray-800">{new Date(user.lastOnlineAt).toLocaleString()}</p>
-                  </div>
                 </div>
-              </div>
+              </CardContent>
+            </Card>
+          </motion.div>
 
-              {/* Location Information */}
-              <div className="bg-gray-50 p-5 rounded-xl md:col-span-2">
-                <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                  </svg>
-                  <Button
-                    type="button"
-                    className="cursor-pointer"
-                    variant={useCurrentLocation ? "outline" : "outline"}
-                    onClick={() => {
-                      retry();
-                      setUseCurrentLocation(true);
-                      handleSubmit(onSubmit)();
-                      // window.location.reload();
-                    }}
-                  >
-                    Update Current Location
-                  </Button>
-                </h2>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-1">Address</label>
-                  <p className="text-gray-800">{user.location?.address || 'No address provided'}</p>
-                  <Input
-                    value={pickupLocation || "no location found!"}
-                    readOnly
-                    className="bg-gray-100 w-full hidden"
-                  />
-                </div>
-              </div>
-
-              {/* Account Dates */}
-              <div className="bg-gray-50 p-5 rounded-xl md:col-span-2">
-                <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-                  </svg>
-                  Account Dates
-                </h2>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Created At</label>
-                    <p className="text-gray-800">{new Date(user.createdAt).toLocaleString()}</p>
+          {/* Right Column - Details */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Basic Information */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-xl">
+                    <User className="h-5 w-5 text-[#0862ca]" />
+                    Basic Information
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-gray-600 flex items-center gap-2">
+                      <User className="h-4 w-4" />
+                      Full Name
+                    </label>
+                    <p className="text-gray-900 font-medium text-lg">{user.name}</p>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-1">Last Updated</label>
-                    <p className="text-gray-800">{new Date(user.updatedAt).toLocaleString()}</p>
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-gray-600 flex items-center gap-2">
+                      <Mail className="h-4 w-4" />
+                      Email Address
+                    </label>
+                    <p className="text-gray-900 font-medium text-lg">{user.email}</p>
                   </div>
-                </div>
-              </div>
-            </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-gray-600 flex items-center gap-2">
+                      <Shield className="h-4 w-4" />
+                      Username
+                    </label>
+                    <p className="text-gray-900 font-medium text-lg">{user.username}</p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-gray-600 flex items-center gap-2">
+                      <Clock className="h-4 w-4" />
+                      Last Online
+                    </label>
+                    <p className="text-gray-900 font-medium">{new Date(user.lastOnlineAt).toLocaleString()}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Vehicle Information (Driver Only) */}
+            {user?.role === UserRole.DRIVER && (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <Card className="border-2 border-blue-200 bg-blue-50/50">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="flex items-center gap-2 text-xl">
+                        <Car className="h-5 w-5 text-[#0862ca]" />
+                        Vehicle Information
+                      </CardTitle>
+                      <VehicleEditModal userId={user?.driver?._id} vehicleData={user?.driver?.vehicleInfo} />
+                    </div>
+                  </CardHeader>
+                  <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="p-4 bg-white rounded-lg border border-blue-200">
+                      <label className="text-sm font-semibold text-gray-600 block mb-2">License</label>
+                      <p className="text-gray-900 font-bold text-lg">{user?.driver?.vehicleInfo?.license || "N/A"}</p>
+                    </div>
+                    <div className="p-4 bg-white rounded-lg border border-blue-200">
+                      <label className="text-sm font-semibold text-gray-600 block mb-2">Model</label>
+                      <p className="text-gray-900 font-bold text-lg">{user?.driver?.vehicleInfo?.model || "N/A"}</p>
+                    </div>
+                    <div className="p-4 bg-white rounded-lg border border-blue-200">
+                      <label className="text-sm font-semibold text-gray-600 block mb-2">Plate Number</label>
+                      <p className="text-gray-900 font-bold text-lg">{user?.driver?.vehicleInfo?.plateNumber || "N/A"}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+
+            {/* Location Information */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              <Card className="border-2">
+                <CardHeader>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="flex items-center gap-2 text-xl">
+                      <MapPin className="h-5 w-5 text-[#0862ca]" />
+                      Location Information
+                    </CardTitle>
+                    <Button
+                      type="button"
+                      className="gap-2 bg-gradient-to-r from-[#0862ca] to-[#d01622] hover:shadow-lg cursor-pointer"
+                      onClick={() => {
+                        retry();
+                        setUseCurrentLocation(true);
+                        handleSubmit(onSubmit)();
+                      }}
+                    >
+                      <RefreshCw className="h-4 w-4" />
+                      Update Location
+                    </Button>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="p-4 bg-gradient-to-br from-blue-50 to-red-50 rounded-lg border-2 border-gray-200">
+                    <label className="text-sm font-semibold text-gray-600 block mb-2">Current Address</label>
+                    <p className="text-gray-900 font-medium text-lg">
+                      {user.location?.address || 'No address provided'}
+                    </p>
+                    <Input
+                      value={pickupLocation || "no location found!"}
+                      readOnly
+                      className="bg-gray-100 w-full hidden"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Account Dates */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <Card className="border-2">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-xl">
+                    <Calendar className="h-5 w-5 text-[#0862ca]" />
+                    Account Timeline
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="p-4 bg-gray-50 rounded-lg">
+                    <label className="text-sm font-semibold text-gray-600 block mb-2">Account Created</label>
+                    <p className="text-gray-900 font-medium">{new Date(user.createdAt).toLocaleString()}</p>
+                  </div>
+                  <div className="p-4 bg-gray-50 rounded-lg">
+                    <label className="text-sm font-semibold text-gray-600 block mb-2">Last Updated</label>
+                    <p className="text-gray-900 font-medium">{new Date(user.updatedAt).toLocaleString()}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </div>
       </div>

@@ -158,7 +158,7 @@ export default function RequestRide() {
     // ✅ Safe access + fixed type error
     const selectedFare = rideTypesDataRef.current.fare[rideType];
     const payload = {
-      fare: selectedFare ? Number(Number(selectedFare).toFixed(2)) : 20, 
+      fare: selectedFare ? Number(Number(selectedFare).toFixed(2)) : 20,
       lat: destinationCoords.lat,
       lng: destinationCoords.lng,
       picLat: pickupCoords?.lat,
@@ -197,11 +197,15 @@ export default function RequestRide() {
     }
   }, [pickupCoords, destinationCoords]);
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-30 px-4">
-      <div className="container mx-auto max-w-6xl">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Book Your Ride</h1>
-          <p className="text-gray-600">Enter your destination location and take a ride. We'll find you a perfect ride</p>
+    <div className="min-h-screen bg-gradient-to-br from-red-50 to-blue-100 py-20">
+      <div className="container mx-auto max-w-7xl px-6">
+        <div className="flex flex-col justify-center items-center pb-12">
+          <h2 className="text-4xl lg:text-5xl font-black text-gray-900 mb-4">
+            Book Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0862ca] to-[#d01622]">Ride</span>
+          </h2>
+          <p className="text-md md:text-lg text-center text-gray-600 max-w-2xl mx-auto">
+            Enter your destination location and take a ride. We'll find you a perfect ride
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -343,7 +347,7 @@ export default function RequestRide() {
                   size="lg"
                   disabled={!destinationCoords || !pickupCoords}
                 >
-                Request Ride Now
+                  Request Ride Now
                 </Button>
               </form>
             </CardContent>
