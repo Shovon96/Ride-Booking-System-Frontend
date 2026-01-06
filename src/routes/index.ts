@@ -11,6 +11,7 @@ import BikeProductDetailPage from "@/components/pages/vehicles-product/bike-prod
 import BikePartsProductPage from "@/components/pages/vehicles-product/bike-products/page";
 import CarProductDetailPage from "@/components/pages/vehicles-product/car-products/[id]/page";
 import CarPartsProductPage from "@/components/pages/vehicles-product/car-products/page";
+import WishlistPage from "@/components/pages/wishlist/page";
 import { navItemLinks } from "@/constants/links";
 import { UserRole } from "@/constants/userRole";
 import { generateRoutes } from "@/utils/generateRoutes";
@@ -70,6 +71,10 @@ export const appRouter = createBrowserRouter( [
       {
         path: '/wrong-contact-information',
         Component: ContactPage
+      },
+      {
+        path: '/wishlist',
+        Component: WishlistPage
       },
     ]
   },
