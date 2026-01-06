@@ -20,7 +20,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { Link, useLocation, useNavigate } from "react-router";
 import { renderMenuItem, renderMobileMenuItem } from "../ui/NavComponents";
 import Logo from "@/assets/Logo";
-import { Menu } from "lucide-react";
+import { Heart, Menu } from "lucide-react";
 import UserMenu from "../ui/user-menu";
 
 const Navbar = () => {
@@ -72,14 +72,23 @@ const Navbar = () => {
               </NavigationMenu>
             </div>
           </div>
-          {/* User menu */}
-          {!data?.data?.email && <Link to={"/login"}>
-            <Button variant="default" className="cursor-pointer bg-gradient-to-r from-[#0862ca] to-[#d01622] hover:bg-gradient-to-br hover:from-[#d01622] hover:to-[#0862ca]">Login</Button>
-          </Link>
-          }
-          {data?.data?.email &&
-            <UserMenu />
-          }
+
+          <div className="flex items-center gap-4">
+            {/* wishlist */}
+            <Link to={"/wishlist"}>
+              <Button variant="ghost" className="cursor-pointer">
+                <Heart className="size-6 text-gray-800" />
+              </Button>
+            </Link>
+            {/* User menu */}
+            {!data?.data?.email && <Link to={"/login"}>
+              <Button variant="default" className="cursor-pointer bg-gradient-to-r from-[#0862ca] to-[#d01622] hover:bg-gradient-to-br hover:from-[#d01622] hover:to-[#0862ca]">Login</Button>
+            </Link>
+            }
+            {data?.data?.email &&
+              <UserMenu />
+            }
+          </div>
         </nav>
 
         {/* Mobile Menu */}
